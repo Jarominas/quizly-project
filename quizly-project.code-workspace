@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../quizly-project-backend"
+		}
+	],
+    "settings": {}
+}
