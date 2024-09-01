@@ -6,8 +6,11 @@ import Logo from './Logo'
 import DropdownList from './DropdownList'
 import LoginButton from '../buttons/LoginButton'
 import SignupButton from '../buttons/SignupButton'
+import UserAvatar from './UserAvatar'
+import { useAuth } from '@/hooks/useAuth'
 
 export default function Header() {
+	const { user, loading } = useAuth()
 	const [isOpen, setIsOpen] = React.useState(false)
 	return (
 		<header className='bg-white drop-shadow-sm'>
@@ -16,8 +19,14 @@ export default function Header() {
 					<Logo />
 					<NavBar />
 					<div className='flex items-center  space-x-4'>
-						<LoginButton />
-						<SignupButton />
+						{user ? (
+							<UserAvatar />
+						) : (
+							<>
+								<LoginButton />
+								<SignupButton />
+							</>
+						)}
 						<div className='-mr-2 flex md:hidden'>
 							<button
 								onClick={() => setIsOpen(!isOpen)}
@@ -35,7 +44,7 @@ export default function Header() {
 				</div>
 			</div>
 
-			{isOpen && <DropdownList />}
+			{isOpen && <DropdownList setIsOpen={setIsOpen} />}
 		</header>
 	)
 }

@@ -7,6 +7,7 @@ import Link from 'next/link'
 import IconButton from '@/components/buttons/IconButton'
 import GoogleButton from '@/components/buttons/GoogleButton'
 import LoadingSpinner from '@/ui-kit/LoadingSpinner'
+import { useAuth } from '@/hooks/useAuth'
 
 const styles = {
 	formContainer: ' sm:w-full sm:max-w-sm',
@@ -24,22 +25,25 @@ const styles = {
 
 export default function LoginForm() {
 	const router = useRouter()
+	const { login } = useAuth() as any
 	const searchParams = useSearchParams()
 	const callbackUrl = searchParams?.get('callbackUrl')
-	const [error, setError] = React.useState({ message: '', id: 0 })
 
 	const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
 		e.preventDefault()
 		console.log('submit')
-		// const formData = new FormData(e.currentTarget)
-		// const email = formData.get('email') as string
-		// const password = formData.get('password') as string
-		// try {
-		// 	await signInWithEmail(email, password)
-		// 	router.push(callbackUrl || '/')
-		// } catch (error: any) {
-		// 	setError({ message: error.message, id: Date.now() })
-		// }
+		const formData = new FormData(e.currentTarget)
+		const email = formData.get('email') as string
+		const password = formData.get('password') as string
+
+		try {
+			const { token } = await login(email, password)
+			if (token) {
+				router.push(callbackUrl || '/')
+			}
+		} catch (error) {
+			console.log('Login failed', error)
+		}
 	}
 
 	return (

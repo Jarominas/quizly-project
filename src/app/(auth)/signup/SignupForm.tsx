@@ -3,25 +3,36 @@ import GoogleButton from '@/components/buttons/GoogleButton'
 import IconButton from '@/components/buttons/IconButton'
 import { useRouter } from 'next/navigation'
 import React, { FormEventHandler } from 'react'
-import { ChevronRightIcon, HomeIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
+import { HomeIcon } from '@heroicons/react/24/outline'
+import useApi from '@/hooks/useApi'
+import { toast } from 'react-toastify'
 
 export default function SignupForm() {
 	const router = useRouter()
+	const { loading, fetchData } = useApi()
 
 	const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
 		e.preventDefault()
-		console.log('submit')
-		// const formData = new FormData(e.currentTarget)
-		// const email = formData.get('email') as string
-		// const password = formData.get('password') as string
-		// try {
-		// 	await signInWithEmail(email, password)
-		// 	router.push(callbackUrl || '/')
-		// } catch (error: any) {
-		// 	setError({ message: error.message, id: Date.now() })
-		// }
+		const formData = new FormData(e.currentTarget)
+		const name = formData.get('name') as string
+		const email = formData.get('email') as string
+		const password = formData.get('password') as string
+		try {
+			await fetchData('/auth/signup', {
+				method: 'POST',
+				data: {
+					name,
+					email,
+					password,
+				},
+			})
+			toast('Account created successfully', { type: 'success' })
+			router.push('/')
+		} catch (error: any) {
+			console.log(error)
+		}
 	}
+
 	return (
 		<div className='flex flex-col gap-2 w-full max-w-md px-12 py-12 ml-auto mr-auto '>
 			<IconButton
@@ -67,7 +78,14 @@ export default function SignupForm() {
 						className='mb-5 block w-full rounded-md border-0 p-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 placeholder:pl-2 focus:placeholder-transparent focus:ring-2 focus:ring-inset focus:ring-neutral-900 sm:text-sm sm:leading-6'
 						placeholder='Password'
 					/>
-					<IconButton type='submit' text='Sign up' variant='primary' width='xl' />
+					<IconButton
+						type='submit'
+						text='Sign up'
+						variant='primary'
+						width='xl'
+						loading={loading}
+						disabled={loading}
+					/>
 					<div className='mt-4 mb-4 text-left text-sm text-gray-500'>
 						Already have an account?
 						<button
