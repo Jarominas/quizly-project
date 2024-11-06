@@ -1,5 +1,5 @@
 import React from 'react'
-import { axiosInstance } from '@configs/axiosInstance'
+import { axiosInstance } from '@/configs/axiosInstance'
 import { toast } from 'react-toastify'
 
 const useApi = () => {

@@ -1,4 +1,4 @@
-import LoadingSpinner from '@/ui-kit/LoadingSpinner'
+import LoadingSpinner from '@/components/ui-kit/LoadingSpinner'
 import React from 'react'
 
 export default function Loading() {

@@ -2,8 +2,9 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import '@/styles/globals.css'
 import Header from '@/components/header/Header'
-import { AuthProvider } from '@/contexts/AuthContext'
-import ToastifyContainer from '@/ui-kit/ToastifyContainer'
+import Providers from '@/providers/Providers'
+import ToastifyContainer from '@/components/ui-kit/ToastifyContainer'
+import { Container } from '@mui/material'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,11 +21,22 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body className={inter.className}>
-				<AuthProvider>
+				<Providers>
 					<Header />
-					{children}
-					<ToastifyContainer />
-				</AuthProvider>
+					<Container
+						component='main'
+						maxWidth='lg'
+						sx={{
+							mt: 10,
+							display: 'flex',
+							flexDirection: 'column',
+							gap: 5,
+						}}
+					>
+						{children}
+						<ToastifyContainer />
+					</Container>
+				</Providers>
 			</body>
 		</html>
 	)

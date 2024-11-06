@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import '@/styles/globals.css'
-import ToastifyContainer from '@/ui-kit/ToastifyContainer'
-import { AuthProvider } from '@/contexts/AuthContext'
+import ToastifyContainer from '@/components/ui-kit/ToastifyContainer'
+import Providers from '@/providers/Providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,10 +19,10 @@ export default function Layout({
 	return (
 		<html lang='en'>
 			<body className={inter.className}>
-				<AuthProvider>
+				<Providers>
 					{children}
 					<ToastifyContainer />
-				</AuthProvider>
+				</Providers>
 			</body>
 		</html>
 	)
