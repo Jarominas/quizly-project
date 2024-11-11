@@ -19,6 +19,10 @@ import { GoogleIcon } from '@/components/ui-kit/CustomIcons'
 import { NAVIGATION_PATHS } from '@/configs/pageNavigation'
 import Link from 'next/link'
 import HomeIcon from '@mui/icons-material/Home'
+import { axiosInstance } from '@/configs/axiosInstance'
+import { useRouter } from 'next/navigation'
+import { toast } from 'react-toastify'
+import { TOAST_MESSAGES } from '@/constants/toastMessages'
 
 const Card = styled(MuiCard)(({ theme }) => ({
 	display: 'flex',
@@ -59,6 +63,7 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
 }))
 
 export default function SignUpPage(props: { disableCustomTheme?: boolean }) {
+	const router = useRouter()
 	const [emailError, setEmailError] = React.useState(false)
 	const [emailErrorMessage, setEmailErrorMessage] = React.useState('')
 	const [passwordError, setPasswordError] = React.useState(false)
@@ -103,18 +108,26 @@ export default function SignUpPage(props: { disableCustomTheme?: boolean }) {
 		return isValid
 	}
 
-	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault()
 		if (nameError || emailError || passwordError) {
-			event.preventDefault()
 			return
 		}
 		const data = new FormData(event.currentTarget)
-		console.log({
-			name: data.get('name'),
-			lastName: data.get('lastName'),
-			email: data.get('email'),
-			password: data.get('password'),
-		})
+		try {
+			const response = await axiosInstance.post('/users/register', {
+				name: data.get('name'),
+				email: data.get('email'),
+				password: data.get('password'),
+			})
+
+			if (response.status === 200 || response.status === 201) {
+				toast.success(TOAST_MESSAGES.SUCCESS.SIGN_UP)
+				router.push(NAVIGATION_PATHS.LOGIN)
+			}
+		} catch (error) {
+			console.log(error)
+		}
 	}
 
 	return (

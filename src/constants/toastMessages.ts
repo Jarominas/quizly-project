@@ -1,0 +1,28 @@
+export const TOAST_MESSAGES = {
+	SUCCESS: {
+		SIGN_UP: 'Account created successfully',
+		SIGN_IN: 'Logged in successfully',
+		SIGN_OUT: 'Logged out successfully',
+		PASSWORD_RESET: 'Password reset email sent successfully',
+		PASSWORD_CHANGE: 'Password changed successfully',
+		EMAIL_UPDATE: 'Email updated successfully',
+		EMAIL_VERIFICATION: 'Email verification email sent successfully',
+		EMAIL_RESEND: 'Email verification email resent successfully',
+		EMAIL_CONFIRM: 'Email confirmed successfully',
+		EMAIL_RESEND_CONFIRM: 'Email confirmation email resent successfully',
+		EMAIL_RESEND_VERIFICATION: 'Email verification sent successfully',
+	},
+	ERROR: {
+		SIGN_UP: 'Account creation failed',
+		SIGN_IN: 'Login failed',
+		SIGN_OUT: 'Logout failed',
+		PASSWORD_RESET: 'Password reset email failed',
+		PASSWORD_CHANGE: 'Password change failed',
+		EMAIL_UPDATE: 'Email update failed',
+		EMAIL_VERIFICATION: 'Email verification email failed',
+		EMAIL_RESEND: 'Email verification email resent failed',
+		EMAIL_CONFIRM: 'Email confirmation failed',
+		EMAIL_RESEND_CONFIRM: 'Email confirmation email resent failed',
+		EMAIL_RESEND_VERIFICATION: 'Email verification sent failed',
+	},
+}

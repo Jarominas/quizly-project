@@ -5,7 +5,7 @@ import React from 'react'
 import Link from 'next/link'
 
 import { alpha } from '@mui/material/styles'
-import { Box, Button, Container, Toolbar, AppBar, Stack } from '@mui/material'
+import { Box, Button, Container, Toolbar, AppBar, Stack, CircularProgress } from '@mui/material'
 
 import { useAuth } from '@/hooks/useAuth'
 
@@ -35,7 +35,7 @@ const styles = {
 }
 
 export default function Header() {
-	// const { logOut } = useAuth()
+	const { user, loading, logout } = useAuth()
 	const { toggleColorMode, mode } = useColorMode()!
 	const [open, setOpen] = React.useState(false)
 
@@ -50,26 +50,41 @@ export default function Header() {
 					<NavBar />
 					<Stack direction='row' spacing={1}>
 						<ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
-						<Button
-							component={Link}
-							href={NAVIGATION_PATHS.LOGIN}
-							color='primary'
-							variant='outlined'
-							size='small'
-						>
-							Login
-						</Button>
-
-						<Button
-							component={Link}
-							href={NAVIGATION_PATHS.SIGN_UP}
-							color='primary'
-							variant='contained'
-							size='small'
-							sx={{ display: { xs: 'none', md: 'flex' } }}
-						>
-							Sign Up
-						</Button>
+						{loading ? (
+							<CircularProgress size={24} />
+						) : user ? (
+							<Button
+								color='primary'
+								variant='contained'
+								size='small'
+								sx={styles.logOutBtn}
+								onClick={logout}
+							>
+								Log Out
+							</Button>
+						) : (
+							<>
+								<Button
+									component={Link}
+									href={NAVIGATION_PATHS.LOGIN}
+									color='primary'
+									variant='outlined'
+									size='small'
+								>
+									Login
+								</Button>
+								<Button
+									component={Link}
+									href={NAVIGATION_PATHS.SIGN_UP}
+									color='primary'
+									variant='contained'
+									size='small'
+									sx={{ display: { xs: 'none', md: 'flex' } }}
+								>
+									Sign Up
+								</Button>
+							</>
+						)}
 					</Stack>
 					<MobileNavbar toggleDrawer={toggleDrawer} open={open} />
 				</Toolbar>

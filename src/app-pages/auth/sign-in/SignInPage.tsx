@@ -20,6 +20,7 @@ import { NAVIGATION_PATHS } from '@/configs/pageNavigation'
 import ForgotPassword from './ForgotPassword'
 import HomeIcon from '@mui/icons-material/Home'
 import Link from 'next/link'
+import { useAuth } from '@/hooks/useAuth'
 
 const Card = styled(MuiCard)(({ theme }) => ({
 	display: 'flex',
@@ -60,6 +61,7 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 }))
 
 export default function SignInPage(props: { disableCustomTheme?: boolean }) {
+	const { login } = useAuth()
 	const [emailError, setEmailError] = React.useState(false)
 	const [emailErrorMessage, setEmailErrorMessage] = React.useState('')
 	const [passwordError, setPasswordError] = React.useState(false)
@@ -75,15 +77,12 @@ export default function SignInPage(props: { disableCustomTheme?: boolean }) {
 	}
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault()
 		if (emailError || passwordError) {
-			event.preventDefault()
 			return
 		}
 		const data = new FormData(event.currentTarget)
-		console.log({
-			email: data.get('email'),
-			password: data.get('password'),
-		})
+		login(data.get('email') as string, data.get('password') as string)
 	}
 
 	const validateInputs = () => {

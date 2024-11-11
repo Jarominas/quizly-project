@@ -1,5 +1,7 @@
 'use client'
 import { axiosInstance } from '@/configs/axiosInstance'
+import { NAVIGATION_PATHS } from '@/configs/pageNavigation'
+import { TOAST_MESSAGES } from '@/constants/toastMessages'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import { toast } from 'react-toastify'
@@ -29,10 +31,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 				localStorage.setItem('token', token)
 				setUser(user)
 				setLoading(false)
+				router.push(NAVIGATION_PATHS.HOME)
+				toast.success(TOAST_MESSAGES.SUCCESS.SIGN_IN)
 			}
 			return { token, user }
 		} catch (error) {
-			console.error(error)
+			toast.error(TOAST_MESSAGES.ERROR.SIGN_IN)
 			return { token: null }
 		}
 	}
@@ -40,6 +44,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const logout = () => {
 		localStorage.removeItem('token')
 		setUser(null)
+		router.push(NAVIGATION_PATHS.LOGIN)
 	}
 
 	React.useEffect(() => {
@@ -57,7 +62,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 				}
 			}
 			checkUserStatus()
-			toast('Welcome back', { type: 'success' })
 		}
 	}, [])
 
