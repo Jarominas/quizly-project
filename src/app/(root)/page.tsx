@@ -1,11 +1,14 @@
 'use client'
 import React from 'react'
-import Header from '../../components/header/Header'
 import { useAuth } from '@/hooks/useAuth'
+import HomePage from '@/app-pages/home/HomePage'
+import UserHomePage from '@/app-pages/home/UserHomePage'
 
-export default function Home() {
+const Home = () => {
 	const { user } = useAuth()
-	console.log('home page', user)
 
-	return <div>Home</div>
+	if (!user) return <HomePage />
+	return <UserHomePage />
 }
+
+export default Home

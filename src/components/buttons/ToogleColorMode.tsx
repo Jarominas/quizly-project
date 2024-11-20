@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import IconButton from '@mui/material/IconButton'
 
-import { SunIcon, MoonIcon } from '@heroicons/react/24/outline'
 import { LightMode, DarkMode } from '@mui/icons-material'
 
 interface ToggleColorModeProps {
