@@ -26,12 +26,6 @@ const RandomQuizPage = () => {
 		}
 	)
 
-	const fetchNextRandomQuiz = async () => {
-		const newQuiz = await axiosInstance.get('/quizes/random').then((res) => res.data)
-		setQuiz(newQuiz)
-		setShowCorrectAnswer(false)
-	}
-
 	if (!quiz) return <ErrorMessage text={ERROR_MESSAGES.DATA_FETCH_ERROR} />
 	if (isLoading) return <LoadingSpinner />
 	if (error) return <ErrorMessage text={ERROR_MESSAGES.DATA_FETCH_ERROR} />
@@ -42,7 +36,6 @@ const RandomQuizPage = () => {
 			withProgress={false}
 			showCorrectAnswer={showCorrectAnswer}
 			setShowCorrectAnswer={setShowCorrectAnswer}
-			onNext={fetchNextRandomQuiz}
 		/>
 	)
 }

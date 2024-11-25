@@ -11,22 +11,16 @@ interface QuizComponentProps {
 	withProgress: boolean
 	showCorrectAnswer: boolean
 	setShowCorrectAnswer: (showCorrectAnswer: boolean) => void
-	onNext: () => void
 }
 
-const QuizComponent = ({ quiz, withProgress, showCorrectAnswer, setShowCorrectAnswer, onNext }: QuizComponentProps) => {
+const QuizComponent = ({ quiz, withProgress, showCorrectAnswer, setShowCorrectAnswer }: QuizComponentProps) => {
 	return (
 		<Stack spacing={2}>
 			<QuizHeader quiz={quiz} />
 			<QuizProgressBar withProgress={withProgress} />
 			<QuizContent quiz={quiz} />
 			<QuizAnswers quiz={quiz} showCorrectAnswer={showCorrectAnswer} />
-			<QuizFooter
-				quiz={quiz}
-				showCorrectAnswer={showCorrectAnswer}
-				setShowCorrectAnswer={setShowCorrectAnswer}
-				onNext={onNext}
-			/>
+			<QuizFooter quiz={quiz} showCorrectAnswer={showCorrectAnswer} setShowCorrectAnswer={setShowCorrectAnswer} />
 		</Stack>
 	)
 }

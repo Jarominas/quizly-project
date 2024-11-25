@@ -3,6 +3,8 @@
 import React from 'react'
 
 import { Avatar, ListItem, ListItemAvatar, ListItemButton, ListItemText, Stack } from '@mui/material'
+import { useQuiz } from '@/hooks/useQuiz'
+import { getAnswerBackgroundColor } from '@/utils/helpers/getAnswerBackgroundColor'
 
 const styles = {
 	answerBox: {
@@ -16,46 +18,30 @@ const styles = {
 	},
 }
 
-const getBackgroundColor = (answer: any, selectedAnswer: number, showCorrectAnswer: boolean) => {
-	if (!showCorrectAnswer) {
-		return selectedAnswer === answer.id
-			? (theme: any) => theme.palette.primary.light
-			: (theme: any) => theme.palette.background.default
-	}
-
-	if (answer.isCorrect) {
-		return (theme: any) => theme.palette.success.light
-	}
-
-	if (selectedAnswer === answer.id && !answer.isCorrect) {
-		return (theme: any) => theme.palette.error.light
-	}
-
-	return (theme: any) => theme.palette.background.default
-}
-
 const QuizAnswers = ({ quiz, showCorrectAnswer }: any) => {
-	const [selectedAnswer, setSelectedAnswer] = React.useState<number>(0)
+	const { selectedAnswers, addAnswer } = useQuiz()
 	const numbers = ['A', 'B', 'C', 'D']
 
 	const { answers } = quiz?.questions[0]
+	const question = quiz?.questions[0]
 
 	const handleAnswerSelect = (answerId: number) => {
 		if (!showCorrectAnswer) {
-			setSelectedAnswer(answerId)
+			addAnswer(question.id, answerId)
 		}
 	}
+
+	const getListItemStyles = (answer: any) => ({
+		...styles.answerBox,
+		backgroundColor: getAnswerBackgroundColor(answer, selectedAnswers[question.id], showCorrectAnswer),
+	})
 
 	return (
 		<Stack spacing={1}>
 			{answers.map((answer: any, index: number) => {
 				return (
 					<ListItem
-						sx={{
-							...styles.answerBox,
-							backgroundColor: getBackgroundColor(answer, selectedAnswer, showCorrectAnswer),
-							borderColor: showCorrectAnswer && answer.isCorrect ? 'success.main' : 'primary.light',
-						}}
+						sx={getListItemStyles(answer)}
 						key={answer.id}
 						disablePadding
 						onClick={() => handleAnswerSelect(answer.id)}
