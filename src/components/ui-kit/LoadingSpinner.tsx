@@ -1,9 +1,10 @@
-import React from 'react'
+import CircularProgress from '@mui/material/CircularProgress'
+import { Stack } from '@mui/material'
 
 export default function LoadingSpinner() {
 	return (
-		<div className='flex items-center justify-center min-h-screen'>
-			<span className='loading loading-spinner loading-lg'></span>
-		</div>
+		<Stack alignSelf='center' sx={{ mt: 5, flex: 1 }}>
+			<CircularProgress />
+		</Stack>
 	)
 }

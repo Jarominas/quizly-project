@@ -1,9 +1,21 @@
 import { Box, LinearProgress } from '@mui/material'
 import React from 'react'
 
-const QuizProgressBar = () => {
+interface QuizProgressBarProps {
+	withProgress: boolean
+}
+
+const styles = {
+	container: {
+		width: '100%',
+	},
+}
+
+const QuizProgressBar = ({ withProgress }: QuizProgressBarProps) => {
+	if (!withProgress) return null
+
 	return (
-		<Box sx={{ width: '100%' }}>
+		<Box sx={styles.container}>
 			<LinearProgress variant='determinate' value={50} />
 		</Box>
 	)

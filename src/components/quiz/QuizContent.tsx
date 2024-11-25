@@ -17,13 +17,11 @@ const styles = {
 	},
 }
 
-const QuizContent = () => {
+const QuizContent = ({ quiz }: any) => {
+	const { text } = quiz?.questions[0]
 	return (
 		<Stack sx={styles.contentContainer}>
-			<Typography variant='h5'>
-				Quiz Content here will be the question,Quiz Content here will be the question,Quiz Content here will be
-				the question,Quiz Content here will be the question,Quiz Content here will be the question,Quiz Content
-			</Typography>
+			<Typography variant='h5'>{text}</Typography>
 		</Stack>
 	)
 }
