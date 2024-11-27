@@ -1,11 +1,15 @@
-'use client'
-import PrivateRoomPage from '@/app-pages/game-room/PrivateRoomPage'
-import { useParams } from 'next/navigation'
-import React from 'react'
+'use client';
+
+import React from 'react';
+
+import { useParams } from 'next/navigation';
+
+import PrivateRoomPage from '@/app-pages/game-room/PrivateRoomPage';
 
 const PrivateRoom = () => {
-	const { room } = useParams() as { room: string }
-	return <PrivateRoomPage room={room} />
-}
+    const { room } = useParams() as { room: string };
 
-export default PrivateRoom
+    return <PrivateRoomPage room={room} />;
+};
+
+export default PrivateRoom;

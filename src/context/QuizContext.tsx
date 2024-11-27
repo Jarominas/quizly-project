@@ -1,38 +1,48 @@
-import { Quiz } from '@/types/quiz'
-import React from 'react'
+import React from 'react';
+
+import { Quiz } from '@/types/quiz';
 
 interface QuizContextValue {
-	quiz: Quiz | null
-	selectedAnswers: Record<number, number>
-	setQuiz: (quiz: Quiz | null) => void
-	addAnswer: (questionId: number, answerId: number) => void
-	clearAnswers: () => void
+    quiz: Quiz | null;
+    selectedAnswers: Record<number, number>;
+    results: any[] | null;
+    setResults: (_results: any[]) => void;
+    setQuiz: (_quiz: Quiz | null) => void;
+    addAnswer: (_questionId: number, _answerId: number) => void;
+    clearAnswers: () => void;
 }
 
 interface QuizProviderProps {
-	children: React.ReactNode
+    children: React.ReactNode;
 }
 
-export const QuizContext = React.createContext<QuizContextValue | undefined>(undefined)
+export const QuizContext = React.createContext<QuizContextValue>({
+    quiz: null,
+    selectedAnswers: {},
+    results: null,
+    setResults: () => {},
+    setQuiz: () => {},
+    addAnswer: () => {},
+    clearAnswers: () => {},
+});
 
 export const QuizProvider = ({ children }: QuizProviderProps) => {
-	const [quiz, setQuiz] = React.useState<Quiz | null>(null)
-	const [selectedAnswers, setSelectedAnswers] = React.useState<Record<number, number>>({})
+    const [quiz, setQuiz] = React.useState<Quiz | null>(null);
+    const [results, setResults] = React.useState<any[]>([]);
+    const [selectedAnswers, setSelectedAnswers] = React.useState<Record<number, number>>({});
 
-	console.log('QuizProvider', quiz)
+    const addAnswer = (questionId: number, answerId: number) => {
+        setSelectedAnswers(prev => ({
+            ...prev,
+            [questionId]: answerId,
+        }));
+    };
 
-	const addAnswer = (questionId: number, answerId: number) => {
-		setSelectedAnswers((prev) => ({
-			...prev,
-			[questionId]: answerId,
-		}))
-	}
+    const clearAnswers = () => setSelectedAnswers({});
 
-	const clearAnswers = () => setSelectedAnswers({})
-
-	return (
-		<QuizContext.Provider value={{ quiz, selectedAnswers, setQuiz, addAnswer, clearAnswers }}>
-			{children}
-		</QuizContext.Provider>
-	)
-}
+    return (
+        <QuizContext.Provider value={{ quiz, selectedAnswers, results, setResults, setQuiz, addAnswer, clearAnswers }}>
+            {children}
+        </QuizContext.Provider>
+    );
+};

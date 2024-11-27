@@ -13,6 +13,7 @@ export const TOAST_MESSAGES = {
 		EMAIL_RESEND_VERIFICATION: 'Email verification sent successfully',
 	},
 	ERROR: {
+		FETCH_DATA: 'Failed to fetch data',
 		SIGN_UP: 'Account creation failed',
 		SIGN_IN: 'Login failed',
 		SIGN_OUT: 'Logout failed',

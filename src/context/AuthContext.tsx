@@ -1,71 +1,80 @@
-'use client'
-import { axiosInstance } from '@/configs/axiosInstance'
-import { NAVIGATION_PATHS } from '@/configs/pageNavigation'
-import { TOAST_MESSAGES } from '@/constants/toastMessages'
-import { useRouter } from 'next/navigation'
-import React from 'react'
-import { toast } from 'react-toastify'
+'use client';
+
+import React from 'react';
+
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+
+import { axiosInstance } from '@/configs/axiosInstance';
+import { NAVIGATION_PATHS } from '@/configs/pageNavigation';
+import { TOAST_MESSAGES } from '@/constants/toastMessages';
 
 const AuthContext = React.createContext({
-	user: null,
-	login: (email: string, password: string) => {},
-	logout: () => {},
-	loading: false,
-})
+    user: null,
+    login: (_email: string, _password: string) => {},
+    logout: () => {},
+    loading: false,
+});
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-	const router = useRouter()
-	const [user, setUser] = React.useState(null)
-	const [loading, setLoading] = React.useState(false)
+    const router = useRouter();
+    const [user, setUser] = React.useState(null);
+    const [loading, setLoading] = React.useState(false);
 
-	const login = async (email: string, password: string): Promise<{ token: string | null; user?: any }> => {
-		setLoading(true)
-		try {
-			const response = await axiosInstance.post('/auth/login', {
-				email,
-				password,
-			})
+    const login = async (email: string, password: string): Promise<{ token: string | null; user?: any }> => {
+        setLoading(true);
+        try {
+            const response = await axiosInstance.post('/auth/login', {
+                email,
+                password,
+            });
 
-			const { token, user } = response.data
-			if (token) {
-				localStorage.setItem('token', token)
-				setUser(user)
-				setLoading(false)
-				router.push(NAVIGATION_PATHS.HOME)
-				toast.success(TOAST_MESSAGES.SUCCESS.SIGN_IN)
-			}
-			return { token, user }
-		} catch (error) {
-			toast.error(TOAST_MESSAGES.ERROR.SIGN_IN)
-			return { token: null }
-		}
-	}
+            const { token, user: responseUser } = response.data;
 
-	const logout = () => {
-		localStorage.removeItem('token')
-		setUser(null)
-		router.push(NAVIGATION_PATHS.LOGIN)
-	}
+            if (token) {
+                localStorage.setItem('token', token);
+                setUser(responseUser);
+                setLoading(false);
+                router.push(NAVIGATION_PATHS.HOME);
+                toast.success(TOAST_MESSAGES.SUCCESS.SIGN_IN);
+            }
 
-	React.useEffect(() => {
-		const token = localStorage.getItem('token')
-		if (token) {
-			const checkUserStatus = async () => {
-				setLoading(true)
-				try {
-					const response = await axiosInstance.get('/auth/status')
-					setUser(response.data)
-					setLoading(false)
-				} catch (error) {
-					console.error(error)
-					router.push('/')
-				}
-			}
-			checkUserStatus()
-		}
-	}, [])
+            return { token, user };
+        } catch (error) {
+            toast.error(TOAST_MESSAGES.ERROR.SIGN_IN);
 
-	return <AuthContext.Provider value={{ user, login, logout, loading }}>{children}</AuthContext.Provider>
-}
+            return { token: null };
+        }
+    };
 
-export default AuthContext
+    const logout = () => {
+        localStorage.removeItem('token');
+        setUser(null);
+        router.push(NAVIGATION_PATHS.LOGIN);
+    };
+
+    React.useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        if (token) {
+            const checkUserStatus = async () => {
+                setLoading(true);
+                try {
+                    const response = await axiosInstance.get('/auth/status');
+
+                    setUser(response.data);
+                    setLoading(false);
+                } catch (error) {
+                    console.error(error);
+                    router.push('/');
+                }
+            };
+
+            checkUserStatus();
+        }
+    }, []);
+
+    return <AuthContext.Provider value={{ user, login, logout, loading }}>{children}</AuthContext.Provider>;
+};
+
+export default AuthContext;

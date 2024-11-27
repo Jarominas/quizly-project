@@ -1,9 +1,9 @@
-import { Stack } from '@mui/material'
-import React from 'react'
-import { PrivateRoomPageProps } from './types'
+import React from 'react';
 
-const PrivateRoomPage = ({ room }: PrivateRoomPageProps) => {
-	return <Stack>This is room number {room}</Stack>
-}
+import { Stack } from '@mui/material';
 
-export default PrivateRoomPage
+import { PrivateRoomPageProps } from './types';
+
+const PrivateRoomPage = ({ room }: PrivateRoomPageProps) => <Stack>This is room number {room}</Stack>;
+
+export default PrivateRoomPage;

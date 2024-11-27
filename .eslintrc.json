@@ -1,3 +1,221 @@
 {
-  "extends": "next/core-web-vitals"
+    "root": true,
+    "env": {
+        "node": true,
+        "browser": true,
+        "es2020": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:import/recommended",
+        "next",
+        "prettier",
+        "next/core-web-vitals"
+    ],
+    "ignorePatterns": ["dist", ".eslintrc.cjs"],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "project": "./tsconfig.json",
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true
+        }
+    },
+    "settings": {
+        "react": {
+            "version": "18.2"
+        },
+        "import/resolver": {
+            "node": {
+                "paths": ["src"],
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            }
+        }
+    },
+    "plugins": ["react-refresh", "import"],
+    "rules": {
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+        "react/no-unescaped-entities": "off",
+        "react/jsx-no-target-blank": ["off", { "target": "any" }],
+        "react-refresh/only-export-components": [
+            "warn",
+            {
+                "allowConstantExport": true
+            }
+        ],
+        "no-restricted-imports": [
+            "error",
+            {
+                "paths": [
+                    {
+                        "name": "react",
+                        "importNames": [
+                            "useState",
+                            "useEffect",
+                            "useContext",
+                            "useReducer",
+                            "useCallback",
+                            "useMemo",
+                            "useRef",
+                            "useImperativeHandle",
+                            "useLayoutEffect",
+                            "useDebugValue"
+                        ],
+                        "message": "Use default import for React hooks: import React from 'react';"
+                    }
+                ]
+            }
+        ],
+        "react/prop-types": 0,
+        "prefer-const": 2,
+        "no-var": 2,
+        "yoda": 2,
+        "no-dupe-keys": 2,
+        "no-multi-spaces": 2,
+        "no-multiple-empty-lines": 2,
+        "no-trailing-spaces": 2,
+        "no-duplicate-imports": 2,
+        "no-unused-expressions": 2,
+        "no-undefined": 2,
+        "no-useless-catch": 2,
+        "no-useless-computed-key": 2,
+        "no-useless-concat": 2,
+        "no-useless-constructor": 2,
+        "prefer-regex-literals": 2,
+        "prefer-numeric-literals": 2,
+        "grouped-accessor-pairs": [2, "setBeforeGet"],
+        "arrow-body-style": [2, "as-needed"],
+        "import/no-unresolved": [0, { "caseSensitive": true }],
+        "max-lines": [2, { "max": 280, "skipBlankLines": true }],
+        "padding-line-between-statements": [
+            2,
+            { "blankLine": "always", "prev": "*", "next": "return" },
+            { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
+            { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"] },
+            { "blankLine": "never", "prev": ["case", "default"], "next": "*" },
+            { "blankLine": "always", "prev": "directive", "next": "*" },
+            { "blankLine": "any", "prev": "directive", "next": "directive" },
+            { "blankLine": "always", "prev": ["export"], "next": ["*"] },
+            {
+                "blankLine": "always",
+                "prev": ["*"],
+                "next": ["multiline-const", "multiline-let", "multiline-var", "export"]
+            }
+        ],
+        "import/order": [
+            2,
+            {
+                "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+                "newlines-between": "always",
+                "alphabetize": {
+                    "order": "ignore",
+                    "caseInsensitive": true
+                },
+                "pathGroups": [
+                    {
+                        "pattern": "react",
+                        "group": "builtin",
+                        "position": "before"
+                    },
+                    {
+                        "pattern": "next/link",
+                        "group": "builtin",
+                        "position": "before"
+                    },
+                    {
+                        "pattern": "@/**",
+                        "group": "internal",
+                        "position": "before"
+                    },
+                    {
+                        "pattern": "@components/**",
+                        "group": "internal",
+                        "position": "before"
+                    },
+                    {
+                        "pattern": "@config/**",
+                        "group": "internal",
+                        "position": "before"
+                    },
+                    {
+                        "pattern": "@context/**",
+                        "group": "internal",
+                        "position": "before"
+                    },
+                    {
+                        "pattern": "@hooks/**",
+                        "group": "internal",
+                        "position": "before"
+                    },
+                    {
+                        "pattern": "@middlewares/**",
+                        "group": "internal",
+                        "position": "before"
+                    },
+                    {
+                        "pattern": "@pages/**",
+                        "group": "internal",
+                        "position": "before"
+                    },
+                    {
+                        "pattern": "@styles/**",
+                        "group": "internal",
+                        "position": "before"
+                    },
+                    {
+                        "pattern": "@theme/**",
+                        "group": "internal",
+                        "position": "before"
+                    },
+                    {
+                        "pattern": "@utils/**",
+                        "group": "internal",
+                        "position": "before"
+                    }
+                ],
+                "pathGroupsExcludedImportTypes": []
+            }
+        ],
+        "curly": [2, "multi"],
+        "max-params": [2, 4],
+        "max-nested-callbacks": [2, 5],
+        "max-depth": [2, 3],
+        "no-unused-vars": [
+            2,
+            {
+                "vars": "all",
+                "args": "after-used",
+                "argsIgnorePattern": "^_"
+            }
+        ],
+        "react-hooks/exhaustive-deps": 1,
+        "id-length": [1, { "min": 1, "max": 35 }],
+        "import/no-anonymous-default-export": 0,
+        "no-throw-literal": 0,
+        "no-sequences": 0,
+        "no-console": ["warn"],
+        "eqeqeq": 2,
+        "no-debugger": 2,
+        "consistent-return": 2,
+        "no-shadow": "error",
+        "prefer-arrow-callback": "error"
+    },
+    "overrides": [
+        {
+            "files": ["./src/**/*"],
+            "rules": {
+                "max-lines": 0
+            }
+        },
+        {
+            "files": ["**/layout.jsx", "**/layout.js", "**/layout.tsx", "**/layout.ts"],
+            "rules": {
+                "react-refresh/only-export-components": "off"
+            }
+        }
+    ]
 }

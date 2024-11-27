@@ -1,17 +1,18 @@
-export const getAnswerBackgroundColor = (answer: any, selectedAnswer: number, showCorrectAnswer: boolean) => {
-	if (!showCorrectAnswer) {
-		return selectedAnswer === answer.id
-			? (theme: any) => theme.palette.primary.light
-			: (theme: any) => theme.palette.background.default
-	}
+export const getAnswerBackgroundColor = (
+    answer: any,
+    selectedAnswer: number,
+    showCorrectAnswer: boolean,
+    correctAnswerId: number
+) => {
+    if (!showCorrectAnswer)
+        return selectedAnswer === answer.id
+            ? (theme: any) => theme.palette.primary.light
+            : (theme: any) => theme.palette.background.default;
 
-	if (answer.isCorrect) {
-		return (theme: any) => theme.palette.success.light
-	}
+    if (answer.id === correctAnswerId) return (theme: any) => theme.palette.success.light;
 
-	if (selectedAnswer === answer.id && !answer.isCorrect) {
-		return (theme: any) => theme.palette.error.light
-	}
+    if (selectedAnswer === answer.id)
+        return (theme: any) => (answer.isCorrect ? theme.palette.success.light : theme.palette.error.light);
 
-	return (theme: any) => theme.palette.background.default
-}
+    return (theme: any) => theme.palette.background.default;
+};

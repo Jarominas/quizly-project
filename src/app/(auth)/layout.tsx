@@ -1,9 +1,10 @@
-import '@/styles/globals.css'
+import React from 'react';
+import '@/styles/globals.css';
 
 export default function Layout({
-	children,
+    children,
 }: Readonly<{
-	children: React.ReactNode
+    children: React.ReactNode;
 }>) {
-	return children
+    return children;
 }

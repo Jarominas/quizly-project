@@ -1,7 +1,5 @@
-import React from 'react'
+import React from 'react';
 
-const Achievements = () => {
-	return <div>Achievements</div>
-}
+const Achievements = () => <div>Achievements</div>;
 
-export default Achievements
+export default Achievements;

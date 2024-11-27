@@ -1,8 +1,7 @@
-import GameRoomPage from '@/app-pages/game-room/GameRoomPage'
-import React from 'react'
+import React from 'react';
 
-const GameRoom = () => {
-	return <GameRoomPage />
-}
+import GameRoomPage from '@/app-pages/game-room/GameRoomPage';
 
-export default GameRoom
+const GameRoom = () => <GameRoomPage />;
+
+export default GameRoom;

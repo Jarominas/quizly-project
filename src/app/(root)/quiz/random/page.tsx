@@ -1,8 +1,7 @@
-import RandomQuizPage from '@/app-pages/quiz/random/RandomQuizPage'
-import React from 'react'
+import React from 'react';
 
-const RandomQuiz = () => {
-	return <RandomQuizPage />
-}
+import RandomQuizPage from '@/app-pages/quiz/random/RandomQuizPage';
 
-export default RandomQuiz
+const RandomQuiz = () => <RandomQuizPage />;
+
+export default RandomQuiz;

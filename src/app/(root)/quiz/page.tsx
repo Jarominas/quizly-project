@@ -1,8 +1,7 @@
-import QuizPage from '@/app-pages/quiz/QuizPage'
-import React from 'react'
+import React from 'react';
 
-const Quiz = () => {
-	return <QuizPage />
-}
+import QuizPage from '@/app-pages/quiz/QuizPage';
 
-export default Quiz
+const Quiz = () => <QuizPage />;
+
+export default Quiz;

@@ -1,8 +1,7 @@
-import SignUpPage from '@/app-pages/auth/sign-up/SignUpPage'
-import React from 'react'
+import React from 'react';
 
-const SignUp = () => {
-	return <SignUpPage />
-}
+import SignUpPage from '@/app-pages/auth/sign-up/SignUpPage';
 
-export default SignUp
+const SignUp = () => <SignUpPage />;
+
+export default SignUp;
