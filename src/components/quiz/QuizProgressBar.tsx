@@ -3,7 +3,7 @@ import React from 'react';
 import { Box, LinearProgress } from '@mui/material';
 
 interface QuizProgressBarProps {
-    withProgress: boolean;
+    showProgress: boolean;
 }
 
 const styles = {
@@ -12,8 +12,8 @@ const styles = {
     },
 };
 
-const QuizProgressBar = ({ withProgress }: QuizProgressBarProps) => {
-    if (!withProgress) return null;
+const QuizProgressBar = ({ showProgress }: QuizProgressBarProps) => {
+    if (!showProgress) return null;
 
     return (
         <Box sx={styles.container}>

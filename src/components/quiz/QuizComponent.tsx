@@ -10,18 +10,19 @@ import QuizFooter from './QuizFooter';
 
 interface QuizComponentProps {
     quiz: any;
-    withProgress: boolean;
+    showProgress: boolean;
     showCorrectAnswer: boolean;
-    setShowCorrectAnswer: (_showCorrectAnswer: boolean) => void;
+    setShowCorrectAnswer: () => void;
+    fetchNextQuiz: () => Promise<void>;
 }
 
-const QuizComponent = ({ quiz, withProgress, showCorrectAnswer, setShowCorrectAnswer }: QuizComponentProps) => (
+const QuizComponent = ({ quiz, showProgress, showCorrectAnswer }: QuizComponentProps) => (
     <Stack spacing={2}>
         <QuizHeader quiz={quiz} />
-        <QuizProgressBar withProgress={withProgress} />
+        <QuizProgressBar showProgress={showProgress} />
         <QuizContent quiz={quiz} />
         <QuizAnswers quiz={quiz} showCorrectAnswer={showCorrectAnswer} />
-        <QuizFooter quiz={quiz} showCorrectAnswer={showCorrectAnswer} setShowCorrectAnswer={setShowCorrectAnswer} />
+        <QuizFooter />
     </Stack>
 );
 

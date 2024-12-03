@@ -1,35 +1,62 @@
 import React from 'react';
 
+import useSWR from 'swr';
+
 import { Quiz } from '@/types/quiz';
+import { axiosInstance } from '@/configs/axiosInstance';
+import { useAuth } from '@/hooks/useAuth';
 
 interface QuizContextValue {
     quiz: Quiz | null;
     selectedAnswers: Record<number, number>;
-    results: any[] | null;
-    setResults: (_results: any[]) => void;
+    results: {
+        score: number;
+        answeredQuestions: {
+            questionId: number;
+            selectedAnswerId: number;
+            isCorrect: boolean;
+            correctAnswerId: number | null;
+        }[];
+    } | null;
+    showCorrectAnswer: boolean;
+    error: any;
+    isLoading: boolean;
     setQuiz: (_quiz: Quiz | null) => void;
     addAnswer: (_questionId: number, _answerId: number) => void;
     clearAnswers: () => void;
+    setResults: (_results: any[]) => void;
+    toggleCorrectAnswer: (_show: boolean) => void;
+    fetchNextQuiz: () => Promise<void>;
+    validateAnswers: () => Promise<void>;
 }
 
 interface QuizProviderProps {
     children: React.ReactNode;
 }
 
-export const QuizContext = React.createContext<QuizContextValue>({
-    quiz: null,
-    selectedAnswers: {},
-    results: null,
-    setResults: () => {},
-    setQuiz: () => {},
-    addAnswer: () => {},
-    clearAnswers: () => {},
-});
+export const QuizContext = React.createContext<QuizContextValue | null>(null);
 
 export const QuizProvider = ({ children }: QuizProviderProps) => {
+    const { user } = useAuth();
     const [quiz, setQuiz] = React.useState<Quiz | null>(null);
     const [results, setResults] = React.useState<any[]>([]);
     const [selectedAnswers, setSelectedAnswers] = React.useState<Record<number, number>>({});
+    const [showCorrectAnswer, setShowCorrectAnswer] = React.useState<boolean>(false);
+
+    console.log('showCorrectAnswer', showCorrectAnswer);
+
+    console.log(user);
+
+    const { error, isLoading } = useSWR<Quiz>(
+        quiz ? null : '/quizes/random',
+        url => axiosInstance.get(url).then(res => res.data),
+        {
+            revalidateOnFocus: false,
+            onSuccess: fetchedData => {
+                if (!quiz) setQuiz(fetchedData);
+            },
+        }
+    );
 
     const addAnswer = (questionId: number, answerId: number) => {
         setSelectedAnswers(prev => ({
@@ -39,9 +66,55 @@ export const QuizProvider = ({ children }: QuizProviderProps) => {
     };
 
     const clearAnswers = () => setSelectedAnswers({});
+    const toggleCorrectAnswer = (show: boolean) => setShowCorrectAnswer(show);
+
+    const fetchNextQuiz = async () => {
+        try {
+            const response = await axiosInstance.get('/quizes/random');
+
+            setQuiz(response.data);
+            clearAnswers();
+            setResults([]);
+            setShowCorrectAnswer(false);
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    const validateAnswers = async () => {
+        try {
+            const validationResults = await axiosInstance.post('/quizes/validate-answers', {
+                quizId: quiz?.id,
+                selectedAnswers,
+            });
+            console.log('validationResults', validationResults);
+            if (validationResults) {
+                setResults(validationResults.data);
+                setShowCorrectAnswer(true);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    };
 
     return (
-        <QuizContext.Provider value={{ quiz, selectedAnswers, results, setResults, setQuiz, addAnswer, clearAnswers }}>
+        <QuizContext.Provider
+            value={{
+                quiz,
+                selectedAnswers,
+                results,
+                showCorrectAnswer,
+                error,
+                isLoading,
+                setQuiz,
+                addAnswer,
+                clearAnswers,
+                setResults,
+                toggleCorrectAnswer,
+                fetchNextQuiz,
+                validateAnswers,
+            }}
+        >
             {children}
         </QuizContext.Provider>
     );

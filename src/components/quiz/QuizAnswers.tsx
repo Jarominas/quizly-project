@@ -35,7 +35,9 @@ const QuizAnswers = ({ quiz, showCorrectAnswer }: QuizAnswersProps) => {
 
     const { shuffledAnswers } = useShuffledAnswers({ answers: answers });
 
-    const correctAnswerId = results?.find(result => result?.questionId === question.id)?.correctAnswerId;
+    const correctAnswerId = results?.answeredQuestions?.find(
+        result => result.correctAnswerId !== null
+    )?.correctAnswerId;
 
     const handleAnswerSelect = (answerId: number) => {
         if (!showCorrectAnswer) addAnswer(question.id, answerId);
@@ -47,7 +49,7 @@ const QuizAnswers = ({ quiz, showCorrectAnswer }: QuizAnswersProps) => {
             answer,
             selectedAnswers[question.id],
             showCorrectAnswer,
-            correctAnswerId
+            correctAnswerId ?? -1
         ),
     });
 
