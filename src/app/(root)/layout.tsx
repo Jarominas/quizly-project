@@ -5,11 +5,7 @@ import { Container } from '@mui/material';
 
 import Header from '@/components/header/Header';
 
-export default function Layout({
-    children,
-}: Readonly<{
-    children: React.ReactNode;
-}>) {
+export default function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
         <>
             <Header />

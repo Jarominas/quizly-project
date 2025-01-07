@@ -1,5 +1,7 @@
 import React from 'react';
 
-const Achievements = () => <div>Achievements</div>;
+import AchievementsPage from '@/app-pages/achievements/AchievementsPage';
+
+const Achievements = () => <AchievementsPage />;
 
 export default Achievements;

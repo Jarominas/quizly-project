@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 localStorage.setItem('token', token);
                 setUser(responseUser);
                 setLoading(false);
-                router.push(NAVIGATION_PATHS.HOME);
+                router.push(NAVIGATION_PATHS.APP.HOME);
                 toast.success(TOAST_MESSAGES.SUCCESS.SIGN_IN);
             }
 
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const logout = () => {
         localStorage.removeItem('token');
         setUser(null);
-        router.push(NAVIGATION_PATHS.LOGIN);
+        router.push(NAVIGATION_PATHS.SIGN_IN);
     };
 
     React.useEffect(() => {

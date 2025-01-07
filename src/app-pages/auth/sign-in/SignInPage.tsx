@@ -21,7 +21,7 @@ import {
 } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 
-import { GoogleIcon } from '@/components/ui-kit/CustomIcons';
+import { GoogleIcon } from '@/components/ui/CustomIcons';
 import { NAVIGATION_PATHS } from '@/configs/pageNavigation';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -122,7 +122,12 @@ export default function SignInPage() {
             <CssBaseline enableColorScheme />
             <SignInContainer direction="column" justifyContent="space-between">
                 <Stack spacing={2} direction="row" align-self="flex-start">
-                    <Button variant="contained" startIcon={<HomeIcon />} component={Link} href={NAVIGATION_PATHS.HOME}>
+                    <Button
+                        variant="contained"
+                        startIcon={<HomeIcon />}
+                        component={Link}
+                        href={NAVIGATION_PATHS.APP.HOME}
+                    >
                         Back
                     </Button>
                 </Stack>

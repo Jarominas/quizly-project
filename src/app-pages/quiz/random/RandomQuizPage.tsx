@@ -3,8 +3,8 @@
 import React from 'react';
 
 import QuizComponent from '@/components/quiz/QuizComponent';
-import ErrorMessage from '@/components/ui-kit/ErrorMessage';
-import LoadingSpinner from '@/components/ui-kit/LoadingSpinner';
+import ErrorMessage from '@/components/ui/ErrorMessage';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { ERROR_MESSAGES } from '@/constants/errorMessages';
 import { useQuiz } from '@/hooks/useQuiz';
 

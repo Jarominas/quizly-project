@@ -23,7 +23,7 @@ import { toast } from 'react-toastify';
 import HomeIcon from '@mui/icons-material/Home';
 import { useRouter } from 'next/navigation';
 
-import { GoogleIcon } from '@/components/ui-kit/CustomIcons';
+import { GoogleIcon } from '@/components/ui/CustomIcons';
 import { NAVIGATION_PATHS } from '@/configs/pageNavigation';
 import { axiosInstance } from '@/configs/axiosInstance';
 import { TOAST_MESSAGES } from '@/constants/toastMessages';
@@ -127,7 +127,7 @@ export default function SignUpPage() {
 
             if (response.status === 200 || response.status === 201) {
                 toast.success(TOAST_MESSAGES.SUCCESS.SIGN_UP);
-                router.push(NAVIGATION_PATHS.LOGIN);
+                router.push(NAVIGATION_PATHS.SIGN_IN);
             }
         } catch (error) {
             console.log(error);
@@ -139,7 +139,12 @@ export default function SignUpPage() {
             <CssBaseline enableColorScheme />
             <SignUpContainer direction="column" justifyContent="space-between">
                 <Stack spacing={2} direction="row" align-self="flex-start">
-                    <Button variant="contained" startIcon={<HomeIcon />} component={Link} href={NAVIGATION_PATHS.HOME}>
+                    <Button
+                        variant="contained"
+                        startIcon={<HomeIcon />}
+                        component={Link}
+                        href={NAVIGATION_PATHS.APP.HOME}
+                    >
                         Back
                     </Button>
                 </Stack>
@@ -210,7 +215,7 @@ export default function SignUpPage() {
                         </Button>
                         <Stack spacing={1} direction="row" alignSelf="center">
                             <Typography sx={{ textAlign: 'center' }}>Already have an account? </Typography>
-                            <Link href={NAVIGATION_PATHS.LOGIN}>Sign in</Link>
+                            <Link href={NAVIGATION_PATHS.SIGN_IN}>Sign in</Link>
                         </Stack>
                     </Box>
                     <Divider>

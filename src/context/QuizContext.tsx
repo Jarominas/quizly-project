@@ -2,9 +2,10 @@ import React from 'react';
 
 import useSWR from 'swr';
 
-import { Quiz } from '@/types/quiz';
+import { Quiz, Result } from '@/types/quiz';
 import { axiosInstance } from '@/configs/axiosInstance';
 import { useAuth } from '@/hooks/useAuth';
+import { User } from '@/types/user';
 
 interface QuizContextValue {
     quiz: Quiz | null;
@@ -24,7 +25,7 @@ interface QuizContextValue {
     setQuiz: (_quiz: Quiz | null) => void;
     addAnswer: (_questionId: number, _answerId: number) => void;
     clearAnswers: () => void;
-    setResults: (_results: any[]) => void;
+    setResults: (_results: Result) => void;
     toggleCorrectAnswer: (_show: boolean) => void;
     fetchNextQuiz: () => Promise<void>;
     validateAnswers: () => Promise<void>;
@@ -37,15 +38,15 @@ interface QuizProviderProps {
 export const QuizContext = React.createContext<QuizContextValue | null>(null);
 
 export const QuizProvider = ({ children }: QuizProviderProps) => {
-    const { user } = useAuth();
+    const { user } = useAuth() as { user: User | null };
     const [quiz, setQuiz] = React.useState<Quiz | null>(null);
-    const [results, setResults] = React.useState<any[]>([]);
+    const [results, setResults] = React.useState<Result | null>(null);
     const [selectedAnswers, setSelectedAnswers] = React.useState<Record<number, number>>({});
     const [showCorrectAnswer, setShowCorrectAnswer] = React.useState<boolean>(false);
 
     console.log('showCorrectAnswer', showCorrectAnswer);
 
-    console.log(user);
+    console.log('user', user);
 
     const { error, isLoading } = useSWR<Quiz>(
         quiz ? null : '/quizes/random',
@@ -74,7 +75,7 @@ export const QuizProvider = ({ children }: QuizProviderProps) => {
 
             setQuiz(response.data);
             clearAnswers();
-            setResults([]);
+            setResults(null);
             setShowCorrectAnswer(false);
         } catch (e) {
             console.error(e);
@@ -84,10 +85,11 @@ export const QuizProvider = ({ children }: QuizProviderProps) => {
     const validateAnswers = async () => {
         try {
             const validationResults = await axiosInstance.post('/quizes/validate-answers', {
+                userId: user?.id,
                 quizId: quiz?.id,
                 selectedAnswers,
             });
-            console.log('validationResults', validationResults);
+
             if (validationResults) {
                 setResults(validationResults.data);
                 setShowCorrectAnswer(true);
