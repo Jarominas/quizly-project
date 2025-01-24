@@ -59,7 +59,7 @@ export default function Header() {
                             <Button
                                 color="primary"
                                 variant="contained"
-                                size="small"
+                                size="large"
                                 sx={styles.logOutBtn}
                                 onClick={logout}
                             >
@@ -72,7 +72,7 @@ export default function Header() {
                                     href={NAVIGATION_PATHS.SIGN_IN}
                                     color="primary"
                                     variant="outlined"
-                                    size="small"
+                                    size="large"
                                 >
                                     Login
                                 </Button>
@@ -81,7 +81,7 @@ export default function Header() {
                                     href={NAVIGATION_PATHS.SIGN_UP}
                                     color="primary"
                                     variant="contained"
-                                    size="small"
+                                    size="large"
                                     sx={{ display: { xs: 'none', md: 'flex' } }}
                                 >
                                     Sign Up

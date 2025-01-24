@@ -9,7 +9,7 @@ interface ToggleColorModeProps {
 
 function ToggleColorMode({ mode, toggleColorMode, ...props }: ToggleColorModeProps) {
     return (
-        <IconButton onClick={toggleColorMode} color="primary" aria-label="Theme toggle button" size="small" {...props}>
+        <IconButton onClick={toggleColorMode} color="primary" aria-label="Theme toggle button" size="large" {...props}>
             {mode === 'dark' ? <LightMode fontSize="small" /> : <DarkMode fontSize="small" />}
         </IconButton>
     );

@@ -18,7 +18,7 @@ const styles = {
     stack: {
         mx: 3,
         pb: 10,
-        mt: { xs: 8, md: 0 },
+        mt: { xs: 8, md: 1 },
     },
 };
 

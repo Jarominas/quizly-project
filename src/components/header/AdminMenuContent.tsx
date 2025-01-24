@@ -18,8 +18,14 @@ import { useAuth } from '@/hooks/useAuth';
 import { ADMIN_PANEL_NAVIGATION_LIST, NAVIGATION_PATHS } from '@/configs/pageNavigation';
 
 const styles = {
-    navContainer: { flexGrow: 1, p: 1, justifyContent: 'space-between' },
-    listItem: { display: 'block' },
+    navContainer: {
+        flexGrow: 1,
+        p: 1,
+        justifyContent: 'space-between',
+    },
+    listItem: {
+        display: 'block',
+    },
 };
 
 const AdminMenuContent = () => {
@@ -47,10 +53,10 @@ const AdminMenuContent = () => {
                 ))}
             </List>
             <Stack spacing={2}>
-                <Button component={Link} href={NAVIGATION_PATHS.APP.HOME} variant="outlined" fullWidth>
+                <Button size="large" component={Link} href={NAVIGATION_PATHS.APP.HOME} variant="contained" fullWidth>
                     Web App
                 </Button>
-                <Button variant="outlined" fullWidth startIcon={<LogoutRoundedIcon />} onClick={logout}>
+                <Button size="large" variant="contained" fullWidth startIcon={<LogoutRoundedIcon />} onClick={logout}>
                     Logout
                 </Button>
             </Stack>
