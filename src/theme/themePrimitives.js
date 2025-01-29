@@ -1,3 +1,4 @@
+import { deepPurple } from '@mui/material/colors';
 import { createTheme, alpha } from '@mui/material/styles';
 
 const defaultTheme = createTheme();
@@ -83,15 +84,15 @@ export const getDesignTokens = mode => {
         palette: {
             mode,
             primary: {
-                light: brand[200],
-                main: brand[400],
-                dark: brand[700],
+                light: deepPurple[200],
+                main: deepPurple[400],
+                dark: deepPurple[700],
                 contrastText: brand[50],
                 ...(mode === 'dark' && {
                     contrastText: brand[50],
-                    light: brand[300],
-                    main: brand[400],
-                    dark: brand[700],
+                    light: deepPurple[300],
+                    main: deepPurple[400],
+                    dark: deepPurple[700],
                 }),
             },
             info: {

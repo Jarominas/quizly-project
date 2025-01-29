@@ -8,4 +8,6 @@ export interface Quiz {
     };
     correctAnswer: string;
     incorrectAnswers: { answer: string }[];
+    isNiche: boolean;
+    imageUrl: string;
 }

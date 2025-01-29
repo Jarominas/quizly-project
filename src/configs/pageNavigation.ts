@@ -7,7 +7,6 @@ import InterpreterModeIcon from '@mui/icons-material/InterpreterMode';
 import PeopleRounded from '@mui/icons-material/PeopleRounded';
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 
 interface NavItem {
     name: string;
@@ -29,7 +28,6 @@ type NavigationPaths = {
         ROOT: string;
         USERS: string;
         QUIZES: string;
-        ADD_QUIZ: string;
     };
     SIGN_IN: string;
     SIGN_UP: string;
@@ -49,7 +47,6 @@ export const NAVIGATION_PATHS: NavigationPaths = {
         ROOT: '/admin-panel',
         USERS: '/admin-panel/users',
         QUIZES: '/admin-panel/quizes',
-        ADD_QUIZ: '/admin-panel/add-quiz',
     },
     SIGN_IN: '/sign-in',
     SIGN_UP: '/sign-up',
@@ -98,10 +95,5 @@ export const ADMIN_PANEL_NAVIGATION_LIST: NavItem[] = [
         name: 'Quizes',
         link: NAVIGATION_PATHS.ADMIN_PANEL.QUIZES,
         icon: ViewCarouselIcon,
-    },
-    {
-        name: 'Add Quiz',
-        link: NAVIGATION_PATHS.ADMIN_PANEL.ADD_QUIZ,
-        icon: PlaylistAddIcon,
     },
 ];
