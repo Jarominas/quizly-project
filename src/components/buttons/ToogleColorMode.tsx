@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import IconButton from '@mui/material/IconButton';
 import { LightMode, DarkMode } from '@mui/icons-material';
 
@@ -14,10 +13,5 @@ function ToggleColorMode({ mode, toggleColorMode, ...props }: ToggleColorModePro
         </IconButton>
     );
 }
-
-ToggleColorMode.propTypes = {
-    mode: PropTypes.oneOf(['dark', 'light']).isRequired,
-    toggleColorMode: PropTypes.func.isRequired,
-};
 
 export default ToggleColorMode;
