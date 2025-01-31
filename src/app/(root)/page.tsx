@@ -1,6 +1,17 @@
-import React from 'react'
-import Header from '../../components/header/Header'
+'use client';
 
-export default function Home() {
-	return <div>Home</div>
-}
+import React from 'react';
+
+import { useAuth } from '@/hooks/useAuth';
+import HomePage from '@/app-pages/home/HomePage';
+import UserHomePage from '@/app-pages/home/UserHomePage';
+
+const Home = () => {
+    const { user } = useAuth();
+
+    if (!user) return <HomePage />;
+
+    return <UserHomePage />;
+};
+
+export default Home;

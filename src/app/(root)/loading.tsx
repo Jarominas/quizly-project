@@ -1,6 +1,7 @@
-import LoadingSpinner from '@/ui-kit/LoadingSpinner'
-import React from 'react'
+import React from 'react';
+
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 export default function Loading() {
-	return <LoadingSpinner />
+    return <LoadingSpinner />;
 }

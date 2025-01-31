@@ -1,37 +1,31 @@
-import Link from 'next/link'
-import React from 'react'
+import React from 'react';
+
+import { Button, CircularProgress } from '@mui/material';
 
 interface IconButtonProps {
-	text: string
-	icon?: React.ReactNode
-	className?: string
-	type?: 'button' | 'submit' | 'reset'
-	onClick?: () => void
-	variant: 'primary' | 'secondary' | 'tertiary'
-	disabled?: boolean
-	width: 'xl' | 'md' | 'xs'
+    text: string;
+    loading?: boolean;
+    variant?: 'contained' | 'outlined' | 'text';
+    size?: 'small' | 'medium' | 'large';
+    disabled?: boolean;
+    onClick?: () => void;
+    icon?: React.ReactNode;
 }
 
-export default function IconButton({
-	text,
-	icon,
-	className,
-	type,
-	onClick,
-	variant,
-	disabled,
-	width,
-}: IconButtonProps) {
-	const variantWidth = {
-		xl: 'max-w-full',
-		md: 'w-4/12',
-		xs: 'w-2/12',
-	}[width]
+const ICON_SIZE = 20;
 
-	return (
-		<button className={`btn btn-${variant} ${variantWidth} flex justify-start`} type={type} onClick={onClick}>
-			{icon && <span className='w-6 h-6'>{icon}</span>}
-			<span className=''>{text}</span>
-		</button>
-	)
-}
+const IconButton = ({ text, icon, loading, variant, size, disabled, onClick }: IconButtonProps) => (
+    <>
+        {loading ? (
+            <Button variant={variant} size={size} disabled={disabled} endIcon={<CircularProgress size={ICON_SIZE} />}>
+                {text}
+            </Button>
+        ) : (
+            <Button onClick={onClick} variant={variant} size={size} disabled={disabled} endIcon={icon}>
+                {text}
+            </Button>
+        )}
+    </>
+);
+
+export default IconButton;

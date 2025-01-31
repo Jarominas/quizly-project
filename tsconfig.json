@@ -1,28 +1,52 @@
 {
-	"compilerOptions": {
-		"lib": ["dom", "dom.iterable", "esnext"],
-		"allowJs": true,
-		"skipLibCheck": true,
-		"strict": true,
-		"noEmit": true,
-		"esModuleInterop": true,
-		"module": "esnext",
-		"moduleResolution": "bundler",
-		"resolveJsonModule": true,
-		"isolatedModules": true,
-		"jsx": "preserve",
-		"incremental": true,
-		"plugins": [
-			{
-				"name": "next"
-			}
-		],
-		"paths": {
-			"@/*": ["./src/*"],
-			"@components/*": ["./src/components/*"],
-			"@hooks/*": ["./src/hooks/*"]
-		}
-	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-	"exclude": ["node_modules"]
+    "compilerOptions": {
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "noEmit": true,
+        "esModuleInterop": true,
+        "module": "esnext",
+        "moduleResolution": "bundler",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "incremental": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "allowSyntheticDefaultImports": true,
+        "plugins": [
+            {
+                "name": "next"
+            }
+        ],
+        "paths": {
+            "@/*": ["./src/*"],
+            "@components/*": ["./src/components/*"],
+            "@components/buttons": ["./src/components/buttons"],
+            "@hooks/*": ["./src/hooks/*"],
+            "@services/*": ["./src/services/*"],
+            "@configs/*": ["./src/configs/*"],
+            "@context/*": ["./src/context/*"],
+            "@theme/*": ["./src/theme/*"],
+            "@utils/*": ["./src/utils/*"],
+            "@providers/*": ["./src/providers/*"]
+        }
+    },
+    "include": [
+        "next-env.d.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        ".next/types/**/*.ts",
+        "src/configs/axiosInstance.ts",
+        "src/providers/MUIThemeProvider.js",
+        "src/theme/themePrimitives.js",
+        "src/theme/getMainTheme.js",
+        "src/theme/customizations/dataDisplay.js",
+        "src/theme/customizations/index.js",
+        "src/theme/customizations/feedback.js",
+        "src/theme/customizations/inputs.js"
+    ],
+    "exclude": ["node_modules"]
 }
