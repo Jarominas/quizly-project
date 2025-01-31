@@ -25,6 +25,8 @@ const MuiDataGrid = ({ fetchUrl, columns, rowsMapper, onRowClick }: MuiDataGridP
 
     const rows = data?.data ? rowsMapper(data.data) : [];
 
+    if (!rows) return <ErrorMessage text="Error" />;
+
     if (error) return <ErrorMessage text="Failed to fetch data" />;
     if (isLoading) return <LoadingSpinner />;
 
