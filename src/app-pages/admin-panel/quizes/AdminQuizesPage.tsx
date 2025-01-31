@@ -21,7 +21,7 @@ const columns = [
 ];
 
 const rowsMapper = (data: Quiz[]) =>
-    data.map((quiz: any) => ({
+    data?.map((quiz: any) => ({
         id: quiz.id,
         category: quiz.category,
         difficulty: quiz.difficulty,
