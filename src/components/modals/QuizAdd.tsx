@@ -41,8 +41,6 @@ const QuizAdd = ({ open, onClose }: QuizAddProps) => {
     const [question, setQuestion] = React.useState('');
     const [incorrectAnswers, setIncorrectAnswers] = React.useState(['', '', '']);
 
-    console.log('selectedImage', selectedImage);
-
     const handleIncorrectAnswerChange = (index: number, value: string) => {
         const updatedAnswers = [...incorrectAnswers];
 
@@ -58,6 +56,7 @@ const QuizAdd = ({ open, onClose }: QuizAddProps) => {
         setType('');
         setQuestion('');
         setIncorrectAnswers(['', '', '']);
+        setGeneratedImages([]);
     };
 
     const handleGenerateImages = async () => {
@@ -72,6 +71,7 @@ const QuizAdd = ({ open, onClose }: QuizAddProps) => {
             const response = await axiosInstance.get('/quizes/generate-images', {
                 params: {
                     prompt: question,
+                    category,
                 },
             });
 
@@ -107,18 +107,18 @@ const QuizAdd = ({ open, onClose }: QuizAddProps) => {
         setLoading(true);
 
         try {
-            console.log('quizData', quizData);
             const response = await axiosInstance.post('/quizes/create', quizData);
 
             if (response.status !== 201) toast.error(TOAST_MESSAGES.ERROR.QUIZ_CREATE);
 
             toast.success(TOAST_MESSAGES.SUCCESS.QUIZ_CREATE);
+
             resetForm();
             mutate('/quizes');
             onClose();
             setLoading(false);
-        } catch (error) {
-            toast.error(TOAST_MESSAGES.SUCCESS.QUIZ_CREATE);
+        } catch (error: any) {
+            toast.error(error.response.data.message || TOAST_MESSAGES.ERROR.QUIZ_CREATE);
             setLoading(false);
         }
     };

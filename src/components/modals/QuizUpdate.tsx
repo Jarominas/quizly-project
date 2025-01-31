@@ -22,6 +22,14 @@ import { TOAST_MESSAGES } from '@/constants/toastMessages';
 
 import ModalLayout from '@components/ui/layouts/ModalLayout';
 
+const styles = {
+    imageContainer: {
+        position: 'relative',
+        width: '525px',
+        height: '385px',
+    },
+};
+
 interface QuizUpdateProps {
     open: boolean;
     onClose: () => void;
@@ -156,8 +164,8 @@ const QuizUpdate = ({ open, onClose, selectedQuiz }: QuizUpdateProps) => {
                     required
                 />
                 {imageUrl && (
-                    <Box>
-                        <Image src={fullImageUrl} alt="Quiz Image" width={200} height={200} unoptimized />
+                    <Box sx={styles.imageContainer}>
+                        <Image src={fullImageUrl} alt="Quiz Image" layout={'fill'} objectFit={'contain'} unoptimized />
                     </Box>
                 )}
 
