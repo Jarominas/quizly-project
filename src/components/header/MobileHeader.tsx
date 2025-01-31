@@ -63,7 +63,7 @@ const MobileNavbar = ({ toggleDrawer, open }: MobileNavbarProps) => (
                 <Stack spacing={1} direction="column">
                     <Button
                         component={Link}
-                        href={NAVIGATION_PATHS.LOGIN}
+                        href={NAVIGATION_PATHS.SIGN_IN}
                         color="primary"
                         variant="outlined"
                         size="small"
