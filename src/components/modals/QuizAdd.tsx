@@ -23,6 +23,21 @@ import { axiosInstance } from '@/configs/axiosInstance';
 
 import ModalLayout from '../ui/layouts/ModalLayout';
 
+const CATEGORIES = [
+    {
+        value: 'economy',
+        label: 'Economy',
+    },
+    {
+        value: 'science',
+        label: 'Science',
+    },
+    {
+        value: 'history',
+        label: 'History',
+    },
+];
+
 interface QuizAddProps {
     open: boolean;
     onClose: () => void;
@@ -130,9 +145,11 @@ const QuizAdd = ({ open, onClose }: QuizAddProps) => {
                 <Stack direction="column" spacing={2} width="100%">
                     <InputLabel>Category</InputLabel>
                     <Select value={category} onChange={e => setCategory(e.target.value)} required>
-                        <MenuItem value="music">Music</MenuItem>
-                        <MenuItem value="science">Science</MenuItem>
-                        <MenuItem value="history">History</MenuItem>
+                        {CATEGORIES.map(item => (
+                            <MenuItem key={item.value} value={item.value}>
+                                {item.label}
+                            </MenuItem>
+                        ))}
                     </Select>
 
                     <InputLabel>Difficulty</InputLabel>
