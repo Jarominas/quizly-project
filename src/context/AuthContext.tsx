@@ -8,8 +8,16 @@ import { toast } from 'react-toastify';
 import { axiosInstance } from '@/configs/axiosInstance';
 import { NAVIGATION_PATHS } from '@/configs/pageNavigation';
 import { TOAST_MESSAGES } from '@/constants/toastMessages';
+import { User } from '@/types/user';
 
-const AuthContext = React.createContext({
+type AuthContextType = {
+    user: User | null;
+    login: (_email: string, _password: string) => void;
+    logout: () => void;
+    loading: boolean;
+};
+
+const AuthContext = React.createContext<AuthContextType>({
     user: null,
     login: (_email: string, _password: string) => {},
     logout: () => {},
@@ -18,7 +26,7 @@ const AuthContext = React.createContext({
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const router = useRouter();
-    const [user, setUser] = React.useState(null);
+    const [user, setUser] = React.useState<User | null>(null);
     const [loading, setLoading] = React.useState(false);
 
     const login = async (email: string, password: string): Promise<{ token: string | null; user?: any }> => {

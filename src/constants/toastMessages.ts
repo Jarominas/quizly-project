@@ -7,6 +7,8 @@ export const TOAST_MESSAGES = {
         QUIZ_UPDATE: 'Quiz updated successfully',
         QUIZ_DELETED: 'Quiz deleted successfully',
         IMAGES_GENERATE: 'Images generated successfully',
+        ROOM_CREATED: 'Room created successfully',
+        COPY_SUCCESS: 'Copied to clipboard',
     },
     ERROR: {
         FETCH_DATA: 'Failed to fetch data',
@@ -19,5 +21,6 @@ export const TOAST_MESSAGES = {
         QUIZ_DELETED: 'Quiz deletion failed',
         REQUIRED_FIELDS: 'Please fill in all required fields',
         IMAGE_GENERATE: 'Image generation failed',
+        ROOM_CREATED: 'Room creation failed',
     },
 };
