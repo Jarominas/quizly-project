@@ -7,12 +7,10 @@ import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
 import PolylineIcon from '@mui/icons-material/Polyline';
-
-import { useAuth } from '@/hooks/useAuth';
-import { axiosInstance } from '@/configs/axiosInstance';
-import { User } from '@/types/user';
-import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
+
+import { axiosInstance } from '@/configs/axiosInstance';
 import { TOAST_MESSAGES } from '@/constants/toastMessages';
 
 const styles = {
@@ -38,8 +36,8 @@ const styles = {
 
 const GameRoomPage = () => {
     const router = useRouter();
-    // const { user }: { user: User | null } = useAuth();
     const [roomName, setRoomName] = React.useState<string>('');
+    const [roomCode, setRoomCode] = React.useState<string>('');
     const [loadingCreate, setLoadingCreate] = React.useState<boolean>(false);
     const [loadingConnect, setLoadingConnect] = React.useState<boolean>(false);
 
@@ -50,7 +48,12 @@ const GameRoomPage = () => {
                 name: roomName,
             });
 
-            if (!response.data.roomUuid) toast.error(TOAST_MESSAGES.ERROR.ROOM_CREATED);
+            if (!response.data.roomUuid) {
+                toast.error(TOAST_MESSAGES.ERROR.ROOM_CREATED);
+                setLoadingCreate(false);
+
+                return null;
+            }
 
             router.push(`/game-room/${response.data.roomUuid}`);
             toast.success(TOAST_MESSAGES.SUCCESS.ROOM_CREATED);
@@ -58,6 +61,31 @@ const GameRoomPage = () => {
         } catch (error) {
             toast.error(TOAST_MESSAGES.ERROR.ROOM_CREATED);
         }
+
+        return null;
+    };
+
+    const handleConnectToRoom = async () => {
+        setLoadingConnect(true);
+        try {
+            const response = await axiosInstance.post(`/game-room/connect/${roomCode}`);
+
+            if (!response.data.roomUuid) {
+                toast.error(TOAST_MESSAGES.ERROR.ROOM_CONNECTED);
+                setLoadingConnect(false);
+
+                return null;
+            }
+
+            router.push(`/game-room/${response.data.roomUuid}`);
+            toast.success(TOAST_MESSAGES.SUCCESS.ROOM_CONNECTED);
+            setLoadingConnect(false);
+        } catch (error) {
+            toast.error(TOAST_MESSAGES.ERROR.ROOM_CONNECTED);
+            setLoadingConnect(false);
+        }
+
+        return null;
     };
 
     return (
@@ -103,12 +131,18 @@ const GameRoomPage = () => {
                         <Typography variant="h6">Join as Player</Typography>
                         <Stack justifyContent="space-between">
                             <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" spacing={2}>
-                                <OutlinedInput type="text" fullWidth placeholder="Enter Room Code" />
+                                <OutlinedInput
+                                    type="text"
+                                    value={roomCode}
+                                    fullWidth
+                                    placeholder="Enter Room Code"
+                                    onChange={e => setRoomCode(e.target.value)}
+                                />
                                 <Stack width={{ xs: '100%', sm: 'auto' }}>
                                     <Button
                                         size="large"
                                         variant="contained"
-                                        onClick={handleCreateRoom}
+                                        onClick={handleConnectToRoom}
                                         disabled={loadingConnect}
                                         startIcon={loadingConnect ? <CircularProgress size={24} /> : <PolylineIcon />}
                                         sx={styles.button}

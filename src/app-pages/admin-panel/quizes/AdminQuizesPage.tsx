@@ -37,8 +37,6 @@ const AdminQuizesPage = () => {
     const [isUpdateQuizOpen, setIsUpdateQuizOpen] = React.useState(false);
     const [selectedQuiz, setSelectedQuiz] = React.useState<any>(null);
 
-    console.log('selectedQuiz', selectedQuiz);
-
     const handleRowClick = (params: any) => {
         setSelectedQuiz(params.row);
         setIsUpdateQuizOpen(true);

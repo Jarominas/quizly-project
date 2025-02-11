@@ -8,6 +8,7 @@ export const TOAST_MESSAGES = {
         QUIZ_DELETED: 'Quiz deleted successfully',
         IMAGES_GENERATE: 'Images generated successfully',
         ROOM_CREATED: 'Room created successfully',
+        ROOM_CONNECTED: 'Room connected successfully',
         COPY_SUCCESS: 'Copied to clipboard',
     },
     ERROR: {
@@ -22,5 +23,6 @@ export const TOAST_MESSAGES = {
         REQUIRED_FIELDS: 'Please fill in all required fields',
         IMAGE_GENERATE: 'Image generation failed',
         ROOM_CREATED: 'Room creation failed',
+        ROOM_CONNECTED: 'Room connection failed',
     },
 };

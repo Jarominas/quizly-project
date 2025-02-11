@@ -40,8 +40,6 @@ export default function Header() {
     const { toggleColorMode, mode } = useColorMode()!;
     const [open, setOpen] = React.useState(false);
 
-    console.log('user', user);
-
     const toggleDrawer = (newOpen: any) => () => {
         setOpen(newOpen);
     };

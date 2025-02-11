@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { axiosInstance } from '@/configs/axiosInstance';
 import { NAVIGATION_PATHS } from '@/configs/pageNavigation';
 import { TOAST_MESSAGES } from '@/constants/toastMessages';
-import { User } from '@/types/user';
+import { User } from '@/models';
 
 type AuthContextType = {
     user: User | null;
