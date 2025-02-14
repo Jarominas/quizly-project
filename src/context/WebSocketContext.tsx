@@ -43,7 +43,15 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         };
     }, []);
 
-    return <WebSocketContext.Provider value={{ socket, isConnected }}>{children}</WebSocketContext.Provider>;
+    const contextValue = React.useMemo(
+        () => ({
+            socket,
+            isConnected: Boolean(isConnected),
+        }),
+        [socket, isConnected]
+    );
+
+    return <WebSocketContext.Provider value={contextValue}>{children}</WebSocketContext.Provider>;
 };
 
 export default WebSocketContext;

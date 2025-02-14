@@ -8,7 +8,11 @@ import { toast } from 'react-toastify';
 import { copyToClipboard } from '@/utils/helpers/copyToClipboard';
 import { TOAST_MESSAGES } from '@/constants/toastMessages';
 
-const RoomHeader = ({ roomUuid }: { roomUuid: string }) => {
+interface RoomHeaderProps {
+    roomUuid: string;
+}
+
+const RoomHeader = ({ roomUuid }: RoomHeaderProps) => {
     const [isCopied, setIsCopied] = React.useState<boolean>(false);
 
     const handleCopyUuid = async () => {
@@ -25,13 +29,16 @@ const RoomHeader = ({ roomUuid }: { roomUuid: string }) => {
     };
 
     return (
-        <Stack spacing={2} alignSelf="flex-end">
-            <Typography variant="h6">Give that number to players so they can connect to Room</Typography>
-            <Stack direction="row" alignItems="center" spacing={2} justifyContent="space-between">
-                <Typography variant="h6">{roomUuid}</Typography>
-                <IconButton onClick={handleCopyUuid}>
-                    {isCopied ? <CheckIcon color="success" /> : <ContentCopyIcon />}
-                </IconButton>
+        <Stack direction="row" justifyContent="space-between">
+            <Typography variant="h4" alignContent="end"></Typography>
+            <Stack spacing={2} alignSelf="flex-end">
+                <Typography variant="h6">Give that number to players so they can connect to Room</Typography>
+                <Stack direction="row" alignItems="center" spacing={2} justifyContent="space-between">
+                    <Typography variant="h6">{roomUuid}</Typography>
+                    <IconButton onClick={handleCopyUuid}>
+                        {isCopied ? <CheckIcon color="success" /> : <ContentCopyIcon />}
+                    </IconButton>
+                </Stack>
             </Stack>
         </Stack>
     );

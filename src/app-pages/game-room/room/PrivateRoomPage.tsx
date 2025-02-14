@@ -1,76 +1,61 @@
 import React from 'react';
 
-import { Button, Card, CircularProgress, Stack, Typography } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 
-import { GameRoom } from '@/models';
-import { useRoomState } from '@/hooks/useRoomState';
 import RoomRoleBasedRender from '@/components/auth/RoomRoleBasedRender';
+import useRoomParticipants from '@/hooks/useRoomParticipants';
 
 import RoomHeader from './RoomHeader';
 import QuizManagement from './QuizManagementSection';
 import QuestionPreview from './QuestionPreviewSection';
 import PlayersSection from './PlayersSection';
 
-const ManagerContent = () => (
+interface PrivateRoomPageProps {
+    roomUuid: string;
+}
+
+const ManagerContent = ({ roomUuid }: PrivateRoomPageProps) => (
     <Stack flex="1" spacing={2}>
-        <QuizManagement />
-        <QuestionPreview />
+        <QuizManagement roomUuid={roomUuid} />
+        <QuestionPreview roomUuid={roomUuid} />
     </Stack>
 );
 
-const PlayerContent = () => (
-    <Stack flex="1" spacing={2}>
-        <Card>
-            <Typography variant="h6">Waiting for other players to start the quiz...</Typography>
-            <Typography variant="h6">You can play Random Quiz for warm-up</Typography>
-            <Stack spacing={2} padding={2} alignItems="flex-start">
-                <Button variant="contained" size="large">
-                    Random Quiz
-                </Button>
-            </Stack>
-        </Card>
+const PlayerContent = ({ roomUuid }: PrivateRoomPageProps) => (
+    <Stack flex="0.5" spacing={1}>
+        <Typography variant="h6">Questions will appear here once the quiz starts</Typography>
+        <Typography variant="h6">You can play random quiz for warm-up</Typography>
+        <Stack alignSelf="flex-start">
+            <Button
+                variant="contained"
+                size="large"
+                color="primary"
+                onClick={() => {
+                    // playRandomQuiz();
+                }}
+            >
+                Play Random Quiz
+            </Button>
+        </Stack>
     </Stack>
 );
 
-const PrivateRoomPage = ({ roomUuid }: GameRoom) => {
-    const { isUserManager, participants, roomManager, isLoading, error, isConnected } = useRoomState(roomUuid);
-
-    if (!isConnected)
-        return (
-            <Stack alignSelf="center">
-                <CircularProgress />
-            </Stack>
-        );
-    if (error)
-        return (
-            <Stack>
-                <Typography variant="h4" color="error">
-                    {error}
-                </Typography>
-            </Stack>
-        );
+const PrivateRoomPage = ({ roomUuid }: PrivateRoomPageProps) => {
+    const { userRole } = useRoomParticipants(roomUuid);
 
     return (
         <Stack spacing={2}>
             <RoomHeader roomUuid={roomUuid} />
             <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" spacing={2}>
-                <RoomRoleBasedRender roomRole="roomManager" isRoomManager={isUserManager} fallback={<PlayerContent />}>
-                    <ManagerContent />
+                <RoomRoleBasedRender allowedRoles={['roomManager']} userRole={userRole}>
+                    <ManagerContent roomUuid={roomUuid} />
                 </RoomRoleBasedRender>
+                <RoomRoleBasedRender allowedRoles={['participant']} userRole={userRole}>
+                    <PlayerContent roomUuid={roomUuid} />
+                </RoomRoleBasedRender>
+
                 <Stack flex="0.5">
-                    {isLoading ? (
-                        <Card>
-                            <Stack spacing={2} padding={2} alignSelf="center" alignItems="center">
-                                <CircularProgress />
-                            </Stack>
-                        </Card>
-                    ) : (
-                        <PlayersSection
-                            participants={participants}
-                            roomManager={roomManager}
-                            isUserManager={isUserManager}
-                        />
-                    )}
+                    <PlayersSection roomUuid={roomUuid} />
                 </Stack>
             </Stack>
         </Stack>

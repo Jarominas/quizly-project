@@ -3,19 +3,19 @@ import React from 'react';
 import { RoomRole } from '@/models';
 
 interface RoomRoleBasedRenderProps {
-    roomRole: RoomRole;
+    allowedRoles: RoomRole[];
+    userRole: RoomRole;
     children: React.ReactNode;
     fallback?: React.ReactNode;
-    isRoomManager: boolean;
 }
 
 const RoomRoleBasedRender: React.FC<RoomRoleBasedRenderProps> = ({
-    roomRole,
+    allowedRoles,
+    userRole,
     children,
     fallback = null,
-    isRoomManager,
 }) => {
-    if (roomRole === 'roomManager' && !isRoomManager) return <>{fallback}</>;
+    if (!allowedRoles.includes(userRole)) return <>{fallback}</>;
 
     return <>{children}</>;
 };

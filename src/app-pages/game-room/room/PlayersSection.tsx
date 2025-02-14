@@ -4,22 +4,15 @@ import { Button, Card, Chip, Stack, Typography } from '@mui/material';
 import PeopleIcon from '@mui/icons-material/People';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-import { User } from '@/models';
 import RoomRoleBasedRender from '@/components/auth/RoomRoleBasedRender';
+import useRoomParticipants from '@/hooks/useRoomParticipants';
 
 interface PlayersSectionProps {
-    participants: User[];
-    roomManager: User | null;
-    isUserManager: boolean;
+    roomUuid: string;
 }
 
-const PlayersSection = ({ participants, roomManager, isUserManager }: PlayersSectionProps) => {
-    const regularParticipants = React.useMemo(
-        () => participants.filter(participant => participant.id !== roomManager?.id),
-        [participants, roomManager]
-    );
-
-    const onlineCount = React.useMemo(() => participants.length, [participants]);
+const PlayersSection = ({ roomUuid }: PlayersSectionProps) => {
+    const { roomManager, regularParticipants, onlineCount, userRole } = useRoomParticipants(roomUuid);
 
     return (
         <Card>
@@ -31,7 +24,7 @@ const PlayersSection = ({ participants, roomManager, isUserManager }: PlayersSec
                     </Stack>
                     <Chip size="medium" color="primary" label={`${onlineCount} online`} />
                 </Stack>
-                <RoomRoleBasedRender roomRole="roomManager" isRoomManager={isUserManager}>
+                <RoomRoleBasedRender allowedRoles={['roomManager']} userRole={userRole}>
                     <Stack alignSelf="flex-end">
                         <Button size="small" variant="contained">
                             Room Queue

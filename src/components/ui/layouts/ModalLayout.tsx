@@ -49,7 +49,7 @@ const ModalLayout = ({ children, open, handleClose }: ModalContainerProps) => (
         aria-describedby="modal-modal-description"
         sx={styles.modalContainer}
     >
-        <Stack sx={styles.modal} spacing={1}>
+        <Stack sx={styles.modal} spacing={3}>
             <IconButton aria-label="close" onClick={handleClose} sx={styles.iconButton}>
                 <CloseIcon />
             </IconButton>

@@ -10,12 +10,12 @@ import MUIThemeProvider from './MUIThemeProvider';
 
 export default function Providers({ children }) {
     return (
-        <WebSocketProvider>
-            <AuthProvider>
+        <AuthProvider>
+            <WebSocketProvider>
                 <ColorModeProvider>
                     <MUIThemeProvider>{children}</MUIThemeProvider>
                 </ColorModeProvider>
-            </AuthProvider>
-        </WebSocketProvider>
+            </WebSocketProvider>
+        </AuthProvider>
     );
 }
