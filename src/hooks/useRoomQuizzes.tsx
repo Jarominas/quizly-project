@@ -10,7 +10,7 @@ const useRoomQuizzes = (roomUuid: string) => {
     const [quizzes, setQuizzes] = React.useState<RoomQuiz[]>([]);
 
     React.useEffect(() => {
-        if (!socket) return;
+        if (!socket || !roomUuid) return;
 
         socket.emit('getQuizzes', { roomUuid });
         socket.on('quizzes', (data: RoomQuiz[]) => {
@@ -18,6 +18,7 @@ const useRoomQuizzes = (roomUuid: string) => {
         });
         socket.on('quizCreated', (quiz: RoomQuiz) => {
             setQuizzes(prev => [...prev, quiz]);
+            // socket.emit('getQuizResponses', quiz.id);
         });
 
         // eslint-disable-next-line consistent-return

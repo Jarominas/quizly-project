@@ -17,10 +17,10 @@ const styles = {
     },
     modal: {
         position: 'absolute',
-        top: '50%',
+        top: '30%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: { xs: '95%', sm: '95%', md: '70%', lg: '40%' },
+        width: { xs: '95%', sm: '95%', md: '80%', lg: '50%' },
         maxHeight: '99%',
         overflow: 'auto',
         bgcolor: 'background.paper',

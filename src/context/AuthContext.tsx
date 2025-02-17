@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = React.useState<User | null>(null);
     const [loading, setLoading] = React.useState(false);
 
-    const login = async (email: string, password: string): Promise<{ token: string | null; user?: any }> => {
+    const login = async (email: string, password: string): Promise<{ token: string | null; user?: User | null }> => {
         setLoading(true);
         try {
             const response = await axiosInstance.post('/auth/login', {

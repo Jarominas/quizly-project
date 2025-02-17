@@ -10,9 +10,11 @@ export const TOAST_MESSAGES = {
         ROOM_CREATED: 'Room created successfully',
         ROOM_CONNECTED: 'Room connected successfully',
         COPY_SUCCESS: 'Copied to clipboard',
+        QUESTION_PUBLISHED: 'Question published successfully',
     },
     ERROR: {
         FETCH_DATA: 'Failed to fetch data',
+        AUTH_REQUIRED: 'You need to be logged in to perform this action',
         SIGN_UP: 'Account creation failed',
         SIGN_IN: 'Login failed',
         SIGN_OUT: 'Logout failed',

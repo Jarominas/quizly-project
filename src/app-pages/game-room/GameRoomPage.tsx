@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 
 import { axiosInstance } from '@/configs/axiosInstance';
 import { TOAST_MESSAGES } from '@/constants/toastMessages';
+import { useAuth } from '@/hooks/useAuth';
 
 const styles = {
     card: {
@@ -35,6 +36,7 @@ const styles = {
 };
 
 const GameRoomPage = () => {
+    const { user } = useAuth();
     const router = useRouter();
     const [roomName, setRoomName] = React.useState<string>('');
     const [roomCode, setRoomCode] = React.useState<string>('');
@@ -42,6 +44,11 @@ const GameRoomPage = () => {
     const [loadingConnect, setLoadingConnect] = React.useState<boolean>(false);
 
     const handleCreateRoom = async () => {
+        if (!user) {
+            toast.error(TOAST_MESSAGES.ERROR.AUTH_REQUIRED);
+
+            return;
+        }
         setLoadingCreate(true);
         try {
             const response = await axiosInstance.post('/game-room/create', {
@@ -51,8 +58,6 @@ const GameRoomPage = () => {
             if (!response.data.roomUuid) {
                 toast.error(TOAST_MESSAGES.ERROR.ROOM_CREATED);
                 setLoadingCreate(false);
-
-                return null;
             }
 
             router.push(`/game-room/${response.data.roomUuid}`);
@@ -61,8 +66,6 @@ const GameRoomPage = () => {
         } catch (error) {
             toast.error(TOAST_MESSAGES.ERROR.ROOM_CREATED);
         }
-
-        return null;
     };
 
     const handleConnectToRoom = async () => {

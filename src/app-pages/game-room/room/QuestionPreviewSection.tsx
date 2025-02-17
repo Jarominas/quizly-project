@@ -1,15 +1,29 @@
 import React from 'react';
 
-import { Button, Card, Stack, Typography } from '@mui/material';
+import { Button, Card, CircularProgress, Stack, Typography } from '@mui/material';
+import { toast } from 'react-toastify';
 
-import useRoomQuizzes from '@/hooks/useRoomQuizzes';
+import { useWebSocket } from '@/hooks/useWebSocket';
+import { TOAST_MESSAGES } from '@/constants/toastMessages';
+import { RoomQuiz } from '@/models';
 
 interface QuestionPreviewProps {
     roomUuid: string;
+    quizzes: RoomQuiz[];
 }
 
-const QuestionPreview = ({ roomUuid }: QuestionPreviewProps) => {
-    const { quizzes } = useRoomQuizzes(roomUuid);
+const QuestionPreview = ({ roomUuid, quizzes }: QuestionPreviewProps) => {
+    const { socket } = useWebSocket();
+    const [loading, setLoading] = React.useState(false);
+
+    const handlePublishQuestion = (quiz: RoomQuiz) => {
+        setLoading(true);
+        if (socket) {
+            socket.emit('publishQuestion', { roomUuid, quiz });
+            toast.success(TOAST_MESSAGES.SUCCESS.QUESTION_PUBLISHED);
+            setLoading(false);
+        }
+    };
 
     if (!quizzes.length)
         return (
@@ -36,7 +50,6 @@ const QuestionPreview = ({ roomUuid }: QuestionPreviewProps) => {
                                 },
                             }}
                         >
-                            {' '}
                             <Stack direction="row" justifyContent="space-between">
                                 <Stack>
                                     <Typography variant="h5">{quiz.question}</Typography>
@@ -46,8 +59,12 @@ const QuestionPreview = ({ roomUuid }: QuestionPreviewProps) => {
                                     </Typography>
                                 </Stack>
                                 <Stack spacing={1}>
-                                    <Button variant="contained" color="primary">
-                                        Edit
+                                    <Button
+                                        startIcon={loading ? <CircularProgress size={24} /> : null}
+                                        variant="contained"
+                                        onClick={() => handlePublishQuestion(quiz)}
+                                    >
+                                        Publish
                                     </Button>
                                     <Button variant="contained" color="error">
                                         Delete

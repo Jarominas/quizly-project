@@ -14,6 +14,8 @@ interface ParamsProps {
 const PrivateRoom = () => {
     const { room } = useParams<ParamsProps>();
 
+    if (!room) return null;
+
     return <PrivateRoomPage roomUuid={room} />;
 };
 

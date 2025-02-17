@@ -31,15 +31,7 @@ const useRoomParticipants = (roomUuid: string) => {
             setParticipants(prev => {
                 if (prev.some(p => p.id === newPlayer.id)) return prev;
 
-                return [
-                    ...prev,
-                    {
-                        id: newPlayer.id,
-                        name: newPlayer.name,
-                        email: newPlayer.email,
-                        isRoomManager: newPlayer.isRoomManager,
-                    },
-                ];
+                return [...prev, newPlayer];
             });
         });
 
