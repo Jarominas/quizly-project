@@ -20,6 +20,8 @@ import {
     styled,
 } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
+import { useGoogleLogin } from '@react-oauth/google';
+import { toast } from 'react-toastify';
 
 import { GoogleIcon } from '@/components/ui/CustomIcons';
 import { NAVIGATION_PATHS } from '@/configs/pageNavigation';
@@ -117,6 +119,16 @@ export default function SignInPage() {
         return isValid;
     };
 
+    const handleGoogleSignIn = useGoogleLogin({
+        flow: 'auth-code',
+        ux_mode: 'redirect',
+        redirect_uri: process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI,
+        onError: error => {
+            console.error('Google Sign In Error:', error);
+            toast.error('Failed to sign in with Google');
+        },
+    });
+
     return (
         <>
             <CssBaseline enableColorScheme />
@@ -207,7 +219,7 @@ export default function SignInPage() {
                         <Button
                             fullWidth
                             variant="outlined"
-                            onClick={() => alert('Sign in with Google')}
+                            onClick={() => handleGoogleSignIn()}
                             startIcon={<GoogleIcon />}
                         >
                             Sign in with Google

@@ -12,6 +12,7 @@ import { User } from '@/models';
 
 type AuthContextType = {
     user: User | null;
+    setUser: React.Dispatch<React.SetStateAction<User | null>>;
     login: (_email: string, _password: string) => void;
     logout: () => void;
     loading: boolean;
@@ -19,6 +20,7 @@ type AuthContextType = {
 
 const AuthContext = React.createContext<AuthContextType>({
     user: null,
+    setUser: () => {},
     login: (_email: string, _password: string) => {},
     logout: () => {},
     loading: false,
@@ -28,8 +30,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const router = useRouter();
     const [user, setUser] = React.useState<User | null>(null);
     const [loading, setLoading] = React.useState(false);
-
-    console.log('user', user);
 
     const login = async (email: string, password: string): Promise<{ token: string | null; user?: User | null }> => {
         setLoading(true);
@@ -84,7 +84,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }, []);
 
-    return <AuthContext.Provider value={{ user, login, logout, loading }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ user, setUser, login, logout, loading }}>{children}</AuthContext.Provider>;
 };
 
 export default AuthContext;

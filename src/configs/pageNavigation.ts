@@ -12,7 +12,7 @@ interface NavItem {
     name: string;
     link: string;
     icon?: React.ComponentType<any>;
-    permission: string;
+    permission: string | null;
 }
 
 type NavigationPaths = {
@@ -58,19 +58,19 @@ export const APP_NAVIGATION_LIST: NavItem[] = [
         name: 'Home',
         link: NAVIGATION_PATHS.APP.HOME,
         icon: HomeIcon,
-        permission: 'navbar:btn.home',
+        permission: null,
     },
     {
         name: 'Quiz',
         link: NAVIGATION_PATHS.APP.QUIZ.ROOT,
         icon: StyleIcon,
-        permission: 'navbar:btn.quiz',
+        permission: null,
     },
     {
         name: 'Game Room',
         link: NAVIGATION_PATHS.APP.GAME_ROOM,
         icon: InterpreterModeIcon,
-        permission: 'navbar:btn.game-room',
+        permission: null,
     },
     {
         name: 'Achievments',

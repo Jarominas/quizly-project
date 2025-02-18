@@ -27,12 +27,10 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         });
 
         socketIo.on('connect', () => {
-            console.log('Socket connected:', socketIo.id);
             setIsConnected(true);
         });
 
         socketIo.on('disconnect', () => {
-            console.log('Socket disconnected');
             setIsConnected(false);
         });
 

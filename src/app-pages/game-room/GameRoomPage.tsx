@@ -69,6 +69,11 @@ const GameRoomPage = () => {
     };
 
     const handleConnectToRoom = async () => {
+        if (!user) {
+            toast.error(TOAST_MESSAGES.ERROR.AUTH_REQUIRED);
+
+            return;
+        }
         setLoadingConnect(true);
         try {
             const response = await axiosInstance.post(`/game-room/connect/${roomCode}`);
@@ -76,8 +81,6 @@ const GameRoomPage = () => {
             if (!response.data.roomUuid) {
                 toast.error(TOAST_MESSAGES.ERROR.ROOM_CONNECTED);
                 setLoadingConnect(false);
-
-                return null;
             }
 
             router.push(`/game-room/${response.data.roomUuid}`);
@@ -87,8 +90,6 @@ const GameRoomPage = () => {
             toast.error(TOAST_MESSAGES.ERROR.ROOM_CONNECTED);
             setLoadingConnect(false);
         }
-
-        return null;
     };
 
     return (
@@ -98,7 +99,7 @@ const GameRoomPage = () => {
                     <PeopleAltOutlinedIcon color="primary" />
                     <Typography variant="h4">Play Quiz Games with Friends</Typography>
                 </Stack>
-                <Typography alignSelf="center">
+                <Typography alignSelf="center" variant="h6">
                     Challenge your friends in exciting quiz games! Create a private room or join an existing one.
                 </Typography>
 
