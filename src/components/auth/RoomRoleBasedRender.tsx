@@ -4,18 +4,18 @@ import { RoomRole } from '@/models';
 
 interface RoomRoleBasedRenderProps {
     allowedRoles: RoomRole[];
-    userRole: RoomRole;
+    userRoomRole: RoomRole;
     children: React.ReactNode;
     fallback?: React.ReactNode;
 }
 
 const RoomRoleBasedRender: React.FC<RoomRoleBasedRenderProps> = ({
     allowedRoles,
-    userRole,
+    userRoomRole,
     children,
     fallback = null,
 }) => {
-    if (!allowedRoles.includes(userRole)) return <>{fallback}</>;
+    if (!allowedRoles.includes(userRoomRole)) return <>{fallback}</>;
 
     return <>{children}</>;
 };

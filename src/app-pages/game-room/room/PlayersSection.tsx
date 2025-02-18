@@ -12,7 +12,7 @@ interface PlayersSectionProps {
 }
 
 const PlayersSection = ({ roomUuid }: PlayersSectionProps) => {
-    const { roomManager, regularParticipants, onlineCount, userRole } = useRoomParticipants(roomUuid);
+    const { roomManager, regularParticipants, onlineCount, userRoomRole } = useRoomParticipants(roomUuid);
 
     return (
         <Card>
@@ -24,7 +24,7 @@ const PlayersSection = ({ roomUuid }: PlayersSectionProps) => {
                     </Stack>
                     <Chip size="medium" color="primary" label={`${onlineCount} online`} />
                 </Stack>
-                <RoomRoleBasedRender allowedRoles={['roomManager']} userRole={userRole}>
+                <RoomRoleBasedRender allowedRoles={['roomManager']} userRoomRole={userRoomRole}>
                     <Stack alignSelf="flex-end">
                         <Button size="small" variant="contained">
                             Room Queue

@@ -29,6 +29,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = React.useState<User | null>(null);
     const [loading, setLoading] = React.useState(false);
 
+    console.log('user', user);
+
     const login = async (email: string, password: string): Promise<{ token: string | null; user?: User | null }> => {
         setLoading(true);
         try {

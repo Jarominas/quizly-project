@@ -9,7 +9,7 @@ const useRoomParticipants = (roomUuid: string) => {
     const { socket } = useWebSocket();
     const { user } = useAuth();
     const [participants, setParticipants] = React.useState<User[]>([]);
-    const [userRole, setUserRole] = React.useState<RoomRole>('participant');
+    const [userRoomRole, setUserRoomRole] = React.useState<RoomRole>('participant');
 
     const roomManager = participants?.find(p => p.isRoomManager);
     const regularParticipants = participants?.filter(p => !p.isRoomManager);
@@ -24,7 +24,7 @@ const useRoomParticipants = (roomUuid: string) => {
 
             const userParticipant = currentParticipants.find(p => p.id === user?.id);
 
-            setUserRole(userParticipant?.isRoomManager ? 'roomManager' : 'participant');
+            setUserRoomRole(userParticipant?.isRoomManager ? 'roomManager' : 'participant');
         });
 
         socket.on('playerJoined', (newPlayer: User) => {
@@ -51,7 +51,7 @@ const useRoomParticipants = (roomUuid: string) => {
         roomManager,
         regularParticipants,
         onlineCount,
-        userRole,
+        userRoomRole,
     };
 };
 

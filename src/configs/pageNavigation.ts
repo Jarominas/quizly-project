@@ -12,6 +12,7 @@ interface NavItem {
     name: string;
     link: string;
     icon?: React.ComponentType<any>;
+    permission: string;
 }
 
 type NavigationPaths = {
@@ -57,26 +58,31 @@ export const APP_NAVIGATION_LIST: NavItem[] = [
         name: 'Home',
         link: NAVIGATION_PATHS.APP.HOME,
         icon: HomeIcon,
+        permission: 'navbar:btn.home',
     },
     {
         name: 'Quiz',
         link: NAVIGATION_PATHS.APP.QUIZ.ROOT,
         icon: StyleIcon,
+        permission: 'navbar:btn.quiz',
     },
     {
         name: 'Game Room',
         link: NAVIGATION_PATHS.APP.GAME_ROOM,
         icon: InterpreterModeIcon,
+        permission: 'navbar:btn.game-room',
     },
     {
         name: 'Achievments',
         link: NAVIGATION_PATHS.APP.ACHIEVEMENTS,
         icon: EmojiEventsIcon,
+        permission: 'navbar:btn.achievements',
     },
     {
         name: 'Admin Panel',
         link: NAVIGATION_PATHS.ADMIN_PANEL.ROOT,
         icon: AdminPanelSettingsIcon,
+        permission: 'navbar:btn.admin-panel',
     },
 ];
 
@@ -85,15 +91,18 @@ export const ADMIN_PANEL_NAVIGATION_LIST: NavItem[] = [
         name: 'Home',
         link: NAVIGATION_PATHS.ADMIN_PANEL.ROOT,
         icon: HomeIcon,
+        permission: 'navbar:btn.admin-panel.home',
     },
     {
         name: 'Users',
         link: NAVIGATION_PATHS.ADMIN_PANEL.USERS,
         icon: PeopleRounded,
+        permission: 'navbar:btn.admin-panel.users',
     },
     {
         name: 'Quizes',
         link: NAVIGATION_PATHS.ADMIN_PANEL.QUIZES,
         icon: ViewCarouselIcon,
+        permission: 'navbar:btn.admin-panel.quizes',
     },
 ];

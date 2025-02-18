@@ -32,7 +32,7 @@ const ManagerContent = ({ roomUuid, quizzes, responses }: ManagerContentProps) =
 );
 
 const PrivateRoomPage = ({ roomUuid }: PrivateRoomPageProps) => {
-    const { userRole } = useRoomParticipants(roomUuid);
+    const { userRoomRole } = useRoomParticipants(roomUuid);
     const { quizzes } = useRoomQuizzes(roomUuid);
     const { responses } = useQuizResponse(roomUuid);
 
@@ -40,10 +40,10 @@ const PrivateRoomPage = ({ roomUuid }: PrivateRoomPageProps) => {
         <Stack spacing={2}>
             <RoomHeader roomUuid={roomUuid} />
             <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" spacing={2}>
-                <RoomRoleBasedRender allowedRoles={['roomManager']} userRole={userRole}>
+                <RoomRoleBasedRender allowedRoles={['roomManager']} userRoomRole={userRoomRole}>
                     <ManagerContent roomUuid={roomUuid} quizzes={quizzes} responses={responses} />
                 </RoomRoleBasedRender>
-                <RoomRoleBasedRender allowedRoles={['participant']} userRole={userRole}>
+                <RoomRoleBasedRender allowedRoles={['participant']} userRoomRole={userRoomRole}>
                     <PlayerContent />
                 </RoomRoleBasedRender>
 
