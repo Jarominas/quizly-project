@@ -16,7 +16,7 @@ export default function NavBar() {
                         <Button
                             variant="text"
                             color="info"
-                            size="small"
+                            size="large"
                             sx={{ minWidth: 0 }}
                             startIcon={item.icon ? <item.icon /> : null}
                         >

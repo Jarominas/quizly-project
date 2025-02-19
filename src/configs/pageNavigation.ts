@@ -1,12 +1,6 @@
 import React from 'react';
 
-import HomeIcon from '@mui/icons-material/Home';
-import StyleIcon from '@mui/icons-material/Style';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import InterpreterModeIcon from '@mui/icons-material/InterpreterMode';
-import PeopleRounded from '@mui/icons-material/PeopleRounded';
-import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import { House, MessageCircleQuestion, Swords, Trophy, Shield, Users, BetweenHorizontalStart } from 'lucide-react';
 
 interface NavItem {
     name: string;
@@ -57,31 +51,31 @@ export const APP_NAVIGATION_LIST: NavItem[] = [
     {
         name: 'Home',
         link: NAVIGATION_PATHS.APP.HOME,
-        icon: HomeIcon,
+        icon: House,
         permission: null,
     },
     {
         name: 'Quiz',
         link: NAVIGATION_PATHS.APP.QUIZ.ROOT,
-        icon: StyleIcon,
+        icon: MessageCircleQuestion,
         permission: null,
     },
     {
         name: 'Game Room',
         link: NAVIGATION_PATHS.APP.GAME_ROOM,
-        icon: InterpreterModeIcon,
+        icon: Swords,
         permission: null,
     },
     {
         name: 'Achievments',
         link: NAVIGATION_PATHS.APP.ACHIEVEMENTS,
-        icon: EmojiEventsIcon,
+        icon: Trophy,
         permission: 'navbar:btn.achievements',
     },
     {
         name: 'Admin Panel',
         link: NAVIGATION_PATHS.ADMIN_PANEL.ROOT,
-        icon: AdminPanelSettingsIcon,
+        icon: Shield,
         permission: 'navbar:btn.admin-panel',
     },
 ];
@@ -90,19 +84,19 @@ export const ADMIN_PANEL_NAVIGATION_LIST: NavItem[] = [
     {
         name: 'Home',
         link: NAVIGATION_PATHS.ADMIN_PANEL.ROOT,
-        icon: HomeIcon,
+        icon: House,
         permission: 'navbar:btn.admin-panel.home',
     },
     {
         name: 'Users',
         link: NAVIGATION_PATHS.ADMIN_PANEL.USERS,
-        icon: PeopleRounded,
+        icon: Users,
         permission: 'navbar:btn.admin-panel.users',
     },
     {
         name: 'Quizes',
         link: NAVIGATION_PATHS.ADMIN_PANEL.QUIZES,
-        icon: ViewCarouselIcon,
+        icon: BetweenHorizontalStart,
         permission: 'navbar:btn.admin-panel.quizes',
     },
 ];

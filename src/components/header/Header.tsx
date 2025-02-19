@@ -17,18 +17,16 @@ import NavBar from './NavBar';
 import MobileNavbar from './MobileHeader';
 
 const styles = {
-    container: { boxShadow: 0, bgcolor: 'transparent', backgroundImage: 'none', mt: 1 },
+    container: { boxShadow: 0, bgcolor: 'transparent', backgroundImage: 'none' },
     toolbar: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         flexShrink: 0,
-        borderRadius: 'calc(8px + 8px)',
         backdropFilter: 'blur(24px)',
         border: '1px solid',
         borderColor: 'divider',
-        backgroundColor: (theme: any) => alpha(theme.palette.background.default, 0.4),
-        boxShadow: 1,
+        backgroundColor: (theme: any) => alpha(theme.palette.background.default, 0.2),
         padding: '8px 12px',
     },
 

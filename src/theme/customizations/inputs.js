@@ -249,14 +249,14 @@ export const inputsCustomizations = {
                     backgroundColor: gray[200],
                 },
                 ...theme.applyStyles('dark', {
-                    backgroundColor: gray[800],
+                    backgroundColor: 'transparent',
                     borderColor: gray[700],
                     '&:hover': {
-                        backgroundColor: gray[900],
+                        backgroundColor: deepPurple[700],
                         borderColor: gray[600],
                     },
                     '&:active': {
-                        backgroundColor: gray[900],
+                        backgroundColor: deepPurple[300],
                     },
                 }),
                 variants: [

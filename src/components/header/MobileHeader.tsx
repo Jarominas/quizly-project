@@ -3,7 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 
 import { Box, Button, Divider, Drawer, IconButton, Stack } from '@mui/material';
-import { XMarkIcon, Bars2Icon } from '@heroicons/react/24/outline';
+import { Menu, X } from 'lucide-react';
 
 import { APP_NAVIGATION_LIST, NAVIGATION_PATHS } from '@/configs/pageNavigation';
 import { usePermission } from '@/hooks/usePermission';
@@ -37,13 +37,13 @@ const MobileNavbar = ({ toggleDrawer, open }: MobileNavbarProps) => {
     return (
         <Box sx={styles.container}>
             <IconButton aria-label="Menu button" onClick={toggleDrawer(true)}>
-                <Bars2Icon />
+                <Menu />
             </IconButton>
             <Drawer anchor="top" open={open} onClose={toggleDrawer(false)}>
                 <Box sx={styles.box}>
                     <Box sx={styles.iconBox}>
                         <IconButton onClick={toggleDrawer(false)}>
-                            <XMarkIcon />
+                            <X />
                         </IconButton>
                     </Box>
                     <Divider sx={styles.divider} />

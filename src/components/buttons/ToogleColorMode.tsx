@@ -1,5 +1,5 @@
 import IconButton from '@mui/material/IconButton';
-import { LightMode, DarkMode } from '@mui/icons-material';
+import { Sun, Moon } from 'lucide-react';
 
 interface ToggleColorModeProps {
     mode: 'dark' | 'light' | null;
@@ -8,8 +8,8 @@ interface ToggleColorModeProps {
 
 function ToggleColorMode({ mode, toggleColorMode, ...props }: ToggleColorModeProps) {
     return (
-        <IconButton onClick={toggleColorMode} color="primary" aria-label="Theme toggle button" size="large" {...props}>
-            {mode === 'dark' ? <LightMode fontSize="small" /> : <DarkMode fontSize="small" />}
+        <IconButton onClick={toggleColorMode} aria-label="Theme toggle button" size="large" {...props}>
+            {mode === 'dark' ? <Sun /> : <Moon />}
         </IconButton>
     );
 }
